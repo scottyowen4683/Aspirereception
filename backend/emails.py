@@ -1,56 +1,45 @@
 import os
 import smtplib
 from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import logging
-
-logger = logging.getLogger(__name__)
 
 class EmailDeliveryError(Exception):
     pass
 
-def send_contact_notification(name: str, email: str, phone: str, message: str):
-    """
-    Send contact form notification email via Brevo SMTP
-    """
-
-    smtp_host = os.getenv("SMTP_HOST", "smtp-relay.brevo.com")
-    smtp_port = int(os.getenv("SMTP_PORT", 587))
-    smtp_user = os.getenv("BREVO_USERNAME", "apikey")
-    smtp_pass = os.getenv("BREVO_PASSWORD")
-
-    sender_email = os.getenv("SENDER_EMAIL")
-    recipient_email = os.getenv("RECIPIENT_EMAIL")
-
-    if not smtp_pass or not sender_email or not recipient_email:
-        raise EmailDeliveryError("Missing SMTP credentials or email addresses")
-
-    subject = "New Contact Form Submission - Aspire Executive Solutions"
-    body = f"""
-    New Contact Submission:
-
-    Name: {name}
-    Email: {email}
-    Phone: {phone if phone else 'Not provided'}
-
-    Message:
-    {message}
-    """
-
+def send_contact_notification(name, email, phone, message):
     try:
-        msg = MIMEMultipart()
-        msg["From"] = sender_email
-        msg["To"] = recipient_email
-        msg["Subject"] = subject
-        msg.attach(MIMEText(body, "plain"))
+        smtp_host = os.getenv("SMTP_HOST", "smtp-relay.brevo.com")
+        smtp_port = int(os.getenv("SMTP_PORT", 587))
+        smtp_user = os.getenv("BREVO_USERNAME", "apikey")  # Brevo always uses "apikey"
+        smtp_pass = os.getenv("BREVO_PASSWORD")  # Your Brevo SMTP key
+        sender = os.getenv("SENDER_EMAIL")
+        recipient = os.getenv("RECIPIENT_EMAIL")
+
+        if not smtp_pass or not sender or not recipient:
+            raise EmailDeliveryError("SMTP credentials or recipient email not configured")
+
+        body = f"""
+        New contact form submission:
+
+        Name: {name}
+        Email: {email}
+        Phone: {phone}
+        Message:
+        {message}
+        """
+
+        msg = MIMEText(body)
+        msg["Subject"] = "New Contact Form Submission"
+        msg["From"] = sender
+        msg["To"] = recipient
 
         with smtplib.SMTP(smtp_host, smtp_port) as server:
             server.starttls()
             server.login(smtp_user, smtp_pass)
-            server.sendmail(sender_email, recipient_email, msg.as_string())
+            server.sendmail(sender, [recipient], msg.as_string())
 
-        logger.info("Email sent successfully via Brevo")
-        return True
+    except Exception as e:
+        raise EmailDeliveryError(str(e))
+
 
     except Exception as e:
         logger.error(f"Failed to send email via Brevo: {str(e)}")
