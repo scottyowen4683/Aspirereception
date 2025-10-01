@@ -1,7 +1,6 @@
 # backend/emails.py
 import os
 from datetime import datetime
-
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 
@@ -10,8 +9,12 @@ class EmailDeliveryError(Exception):
 
 def send_contact_notification(name: str, email: str, phone: str, message: str):
     """
-    Send using Brevo HTTPS API (port 443). Works on Render.
-    Accepts BREVO_API_KEY or (legacy) BREVO_PASSWORD / BREVO_SMTP_KEY.
+    Send via Brevo HTTPS API (works on Render). Reads either:
+      - BREVO_API_KEY   (preferred)
+      - BREVO_PASSWORD  (fallback; your xkeysib... key)
+    And requires:
+      - SENDER_EMAIL (verified in Brevo)
+      - RECIPIENT_EMAIL (where to receive)
     """
     api_key = (
         os.getenv("BREVO_API_KEY")
@@ -22,9 +25,10 @@ def send_contact_notification(name: str, email: str, phone: str, message: str):
     recipient_email = os.getenv("RECIPIENT_EMAIL") or sender_email
 
     if not api_key or not sender_email or not recipient_email:
-        raise EmailDeliveryError("Missing BREVO_API_KEY (or BREVO_PASSWORD) / SENDER_EMAIL / RECIPIENT_EMAIL")
+        raise EmailDeliveryError(
+            "Missing BREVO_API_KEY (or BREVO_PASSWORD) / SENDER_EMAIL / RECIPIENT_EMAIL"
+        )
 
-    # Configure Brevo client
     cfg = sib_api_v3_sdk.Configuration()
     cfg.api_key["api-key"] = api_key
     api = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(cfg))
