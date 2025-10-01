@@ -76,7 +76,7 @@ const Home = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
               Your Business Never Sleeps.
-              <span className="block text-blue-600 mt-2">Neither Should Your Brand.</span>
+              <span className="block text-blue-600 mt-2">Neither do we.</span>
             </h1>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl mx-auto">
               Elevate your business with AI-powered customer service solutions. Available 24/7, cutting costs by up to 70%, with lightning-fast setup. Executive excellence, delivered through intelligent automation.
