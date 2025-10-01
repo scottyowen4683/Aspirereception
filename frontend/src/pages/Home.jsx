@@ -76,10 +76,10 @@ const Home = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
               Your Business Never Sleeps.
-              <span className="block text-blue-600 mt-2">Neither Should Your Reception.</span>
+              <span className="block text-blue-600 mt-2">Neither Should Your Brand.</span>
             </h1>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl mx-auto">
-              Elevate your business with AI-powered receptionist solutions. Available 24/7, cutting costs by up to 70%, with lightning-fast setup. Executive excellence, delivered through intelligent automation.
+              Elevate your business with AI-powered customer service solutions. Available 24/7, cutting costs by up to 70%, with lightning-fast setup. Executive excellence, delivered through intelligent automation.
             </p>
             <div className="flex gap-4 justify-center">
               <a href="#contact">
@@ -107,10 +107,10 @@ const Home = () => {
             </div>
             <div className="bg-slate-50 rounded-2xl p-8 md:p-12 border border-slate-200">
               <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                Aspire Executive Solutions brings executive-level expertise to cutting-edge AI technology. Led by a former CEO with deep roots in the Australian business landscape, we understand the pressures and opportunities facing modern organizations.
+                Aspire Executive Solutions brings executive-level expertise to cutting-edge AI technology. Led by a former CEO with deep roots in the Australian business landscape, we understand the pressures and opportunities facing modern organisations.
               </p>
               <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                Our mission is simple: empower businesses to operate with the efficiency of tomorrow, today. By combining strategic business acumen with advanced AI receptionist technology, we deliver solutions that don't just answer calls—they elevate your entire customer experience.
+                Our mission is simple: empower businesses to operate with the efficiency of tomorrow, today. By combining strategic business acumen with advanced AI Customer Service technology, we deliver solutions that don't just answer calls—they elevate your entire customer experience.
               </p>
               <div className="flex items-center gap-3 text-blue-600 font-semibold">
                 <MapPin className="h-5 w-5" />
@@ -125,7 +125,7 @@ const Home = () => {
       <section id="services" className="py-20 bg-gradient-to-br from-blue-50 to-slate-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">AI Receptionist Solutions</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">AI Customer Solutions</h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">Transform your front desk with intelligent automation that never takes a day off</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -184,10 +184,10 @@ const Home = () => {
               {[
                 ["Former CEO Leadership", "Strategic business insight drives every solution we deliver, ensuring alignment with your executive vision."],
                 ["Australian-Based Excellence", "Local expertise, local support. We understand the Australian business landscape inside and out."],
-                ["Seamless Integration", "Our AI receptionists integrate smoothly with your existing systems, workflows, and business processes."],
-                ["Premium Client Experience", "Your clients deserve the best. Our AI delivers professional, personalized interactions every time."],
+                ["Seamless Integration", "Our AI Customer Support team integrate smoothly with your existing systems, workflows, and business processes."],
+                ["Premium Client Experience", "Your clients deserve the best. Our AI delivers professional, personalised interactions every time."],
                 ["Scalable Solutions", "Grow without limits. Our technology scales effortlessly as your business expands."],
-                ["Ongoing Support", "We're with you every step of the way, providing continuous optimization and support."]
+                ["Ongoing Support", "We're with you every step of the way, providing continuous optimisation and support."]
               ].map(([title, desc], idx) => (
                 <div key={idx} className="flex gap-4 items-start group">
                   <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 transition-colors">
@@ -209,7 +209,7 @@ const Home = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Reception?</h2>
+              <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Brand?</h2>
               <p className="text-xl text-blue-100">Get in touch today and discover how AI can elevate your business</p>
             </div>
             <div className="grid md:grid-cols-2 gap-12">
