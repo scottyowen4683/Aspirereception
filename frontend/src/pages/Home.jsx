@@ -135,7 +135,7 @@ const Home = () => {
                   <Clock className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">24/7 Availability</h3>
-                <p className="text-slate-600 leading-relaxed">Never miss a call, inquiry, or opportunity. Your AI receptionist works round the clock, every day of the year.</p>
+                <p className="text-slate-600 leading-relaxed">Never miss a call, inquiry, or opportunity. Your AI Customer Service team works round the clock, every day of the year.</p>
               </div>
             </div>
 
@@ -145,7 +145,7 @@ const Home = () => {
                   <DollarSign className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Cost Reduction</h3>
-                <p className="text-slate-600 leading-relaxed">Cut reception costs by up to 70% while maintaining premium service quality. Smart business, smarter savings.</p>
+                <p className="text-slate-600 leading-relaxed">Cut admin costs by up to 70% while maintaining premium service quality. Smart business, smarter savings.</p>
               </div>
             </div>
 
@@ -165,7 +165,7 @@ const Home = () => {
                   <Phone className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Zero Downtime</h3>
-                <p className="text-slate-600 leading-relaxed">No sick days, no breaks, no holidays. Consistent, reliable service that your clients can depend on.</p>
+                <p className="text-slate-600 leading-relaxed">No sick days, no breaks, no holidays. Consistent, reliable service that you and your clients can depend on.</p>
               </div>
             </div>
           </div>
