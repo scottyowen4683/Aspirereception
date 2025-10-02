@@ -8,25 +8,25 @@
   <body class="min-h-screen bg-white">
     <div id="root"></div>
 
-    <!-- GHL Aspire Chat Widget -->
-    <script 
-      src="https://widgets.leadconnectorhq.com/loader.js"  
-      data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" 
-      data-widget-id="68de330a0160d118b515f4b6"> 
-    </script>
+  <!-- GHL Aspire Chat Widget -->
+<script 
+  src="https://widgets.leadconnectorhq.com/loader.js"  
+  data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" 
+  data-widget-id="68de330a0160d118b515f4b6"> 
+</script>
 
-    <!-- Auto-open widget after 5 seconds -->
-    <script>
-      window.addEventListener("load", function () {
-        setTimeout(function () {
-          if (window.LC_API && window.LC_API.open_chat_window) {
-            window.LC_API.open_chat_window();
-          }
-        }, 5000); // 5000 ms = 5 seconds
-      });
-    </script>
-
-    <!-- Your React App -->
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
+<!-- Auto-open widget after 5 seconds -->
+<script>
+  window.addEventListener("load", function () {
+    // clear conversation history for a fresh start
+    if (window.localStorage) {
+      localStorage.removeItem("lcw_conversation");
+    }
+    // auto open chat after 5s
+    setTimeout(function () {
+      if (window.LC_API && window.LC_API.open_chat_window) {
+        window.LC_API.open_chat_window();
+      }
+    }, 5000);
+  });
+</script>
