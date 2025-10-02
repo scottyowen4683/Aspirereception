@@ -58,7 +58,7 @@ export default function AiReceptionist() {
       <section className="pt-28 pb-16 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 font-semibold px-3 py-1 rounded-full mb-4">
-            <span className="text-xs tracking-wider">PRODUCT</span>
+            <span className="text-xs tracking-wider">FLAGSHIP</span>
             <span className="text-xs">AI Receptionist</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
