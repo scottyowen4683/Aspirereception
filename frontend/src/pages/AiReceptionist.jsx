@@ -50,7 +50,7 @@ export default function AiReceptionist() {
         <title>Aspire AI Receptionist — 24/7 Phone Answering for SMEs</title>
         <meta
           name="description"
-          content="Never miss a client call again. Aspire AI Receptionist answers instantly 24/7, books appointments, captures leads, and routes VIP/urgent calls to a human. From $3,000/month."
+          content="Never miss a client call again. Aspire AI Receptionist answers instantly 24/7, books appointments, captures leads, and routes VIP/urgent calls to a human."
         />
       </Helmet>
 
@@ -58,14 +58,14 @@ export default function AiReceptionist() {
       <section className="pt-28 pb-16 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 font-semibold px-3 py-1 rounded-full mb-4">
-            <span className="text-xs tracking-wider">PRODUCT</span>
+            <span className="text-xs tracking-wider">FLAGSHIP</span>
             <span className="text-xs">AI Receptionist</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Never Miss a Client Call Again
           </h1>
           <p className="text-lg text-slate-600 mb-6">
-            Aspire AI Receptionist answers instantly—24/7—in your brand voice. It
+            Aspire AI Receptionist answers instantly—24/7—in human voice. It
             books appointments, captures leads, and routes VIP/urgent calls to a
             human when it matters.
           </p>
@@ -84,7 +84,7 @@ export default function AiReceptionist() {
             </a>
           </div>
           <div className="text-sm text-slate-500">
-            From $3,000/month • Cancel anytime • Live in days, not weeks
+            • Cancel anytime • Live in days, not weeks
           </div>
         </div>
       </section>
@@ -175,7 +175,7 @@ export default function AiReceptionist() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              "Trades & Services",
+              "Small Business",
               "Medical & Allied Health",
               "Real Estate & PM",
               "Law & Accounting",
@@ -198,12 +198,12 @@ export default function AiReceptionist() {
             {[
               {
                 name: "Starter",
-                price: "$3,000/mo",
+                price: "$2,500/mo",
                 points: ["Business hours", "1 line", "Message capture + email"],
               },
               {
                 name: "Growth",
-                price: "$4,500/mo",
+                price: "$3,000/mo",
                 points: ["Extended hours", "2–3 lines", "Bookings + CRM sync"],
               },
               {
@@ -253,7 +253,7 @@ export default function AiReceptionist() {
               ],
               [
                 "Can it book into my calendar/CRM?",
-                "Yes. We can push bookings and leads to tools like Google Calendar, Outlook, HubSpot, or Go High Level.",
+                "Yes. We can push bookings and leads to tools like Google Calendar, Outlook, HubSpot, and many more.",
               ],
               [
                 "What happens with urgent calls?",
@@ -261,7 +261,7 @@ export default function AiReceptionist() {
               ],
               [
                 "Will it sound robotic?",
-                "No. We use your tone and approved scripts, and we keep improving based on call outcomes.",
+                "No. We use a human tone and approved scripts, and we keep improving based on call outcomes.",
               ],
             ].map(([q, a]) => (
               <div key={q} className="rounded-xl border border-slate-200 p-5">
@@ -281,6 +281,7 @@ export default function AiReceptionist() {
               <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
               <p className="text-xl text-blue-100">
                 Have questions? Send a message — we’ll get back within 24 hours.
+                Need real executive support?  We do that too!
               </p>
             </div>
 

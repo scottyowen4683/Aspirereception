@@ -105,27 +105,33 @@ const Home = () => {
       <section className="pt-32 pb-20 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-              Your Business Never Sleeps.
-              <span className="block text-blue-600 mt-2">Neither do we.</span>
-            </h1>
+           <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+  Missed Calls Cost Money.
+  <span className="block text-blue-600 mt-2">
+    We Don’t Miss a Thing.
+  </span>
+</h1>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl mx-auto">
-              Elevate your business with AI-powered customer service. 24/7
-              availability, up to 70% lower costs, and lightning-fast setup —
-              executive excellence delivered through intelligent automation.
+              Never lose business to voicemail again. Our AI receptionist is professional,
+  always available, and tailored to your brand. Answering, booking, and
+  routing calls 24/7.
             </p>
             <div className="flex gap-4 justify-center">
               <a href="https://calendly.com/scott-owen-aspire/ai-receptionist-demo">
                 <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-md transition-transform hover:scale-105">
-                  Get Started Today
+                  Book a Discovery Call
                 </button>
               </a>
               <Link to="/ai-receptionist">
                 <button className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 text-lg rounded-md transition-all">
-                  Learn More
+                  See It in Action
                 </button>
               </Link>
             </div>
+            <p className="mt-4 text-sm text-slate-500">
+              Reduce overheads, never miss a call, and deliver a premium first
+              impression, every time.
+            </p>
           </div>
         </div>
       </section>
@@ -141,29 +147,52 @@ const Home = () => {
               <div className="w-20 h-1 bg-blue-600 mx-auto" />
             </div>
             <div className="bg-slate-50 rounded-2xl p-8 md:p-12 border border-slate-200">
-              <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                Aspire Executive Solutions brings executive-level expertise to
-                cutting-edge AI technology. Led by a former CEO with deep roots
-                in the Australian business landscape, we understand the
-                pressures and opportunities facing modern organisations.
-              </p>
-              <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                Our mission is simple: empower businesses to operate with the
-                efficiency of tomorrow, today. By combining strategic business
-                acumen with advanced AI Customer Service technology, we deliver
-                solutions that don't just answer calls — they elevate your
-                entire customer experience.
-              </p>
-              <div className="flex items-center gap-3 text-blue-600 font-semibold">
-                <MapPin className="h-5 w-5" />
-                <span>Proudly Australian-owned and operated</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+     <p className="text-lg text-slate-700 leading-relaxed mb-6">
+  Aspire isn’t another tech vendor. We’re led by a former CEO who has
+  transformed complex organisations. Our solutions combine real-world
+  leadership with cutting-edge AI, so you get measurable outcomes,
+  faster response times, lower costs, and a consistently premium
+  customer experience. Simpler, faster, better.
+</p>
 
-      {/* Services */}
+<p className="text-lg text-slate-700 leading-relaxed mb-6">
+  With our strategic business acumen and advanced AI, we deliver a
+  complete Aspire platform, from the first call through to conversion,
+  retention, and beyond. It’s not just about answering calls, it’s about
+  elevating your entire customer journey.
+</p>
+
+<div className="grid sm:grid-cols-2 gap-3 mb-6">
+  {[
+    ["Smart CRM & Pipeline", "Track every enquiry from first contact through to close."],
+    ["Automated Workflows", "Seamless follow-ups by SMS and email that convert leads into clients."],
+    ["Bookings & Scheduling", "Integrated calendars that cut no-shows and maximise utilisation."],
+    ["Call & Message Tracking", "Full visibility across every conversation and touchpoint."],
+    ["Audits & Reporting", "Executive dashboards with real-time ROI insights."],
+    ["Reputation Management", "Automated review requests to grow and protect your brand."],
+  ].map(([title, desc]) => (
+    <div
+      key={title}
+      className="rounded-xl border border-slate-200 bg-white p-4"
+    >
+      <div className="text-slate-900 font-semibold">{title}</div>
+      <div className="text-slate-600 text-sm">{desc}</div>
+    </div>
+  ))}
+</div>
+
+<div className="flex items-center gap-3 text-blue-600 font-semibold">
+  <MapPin className="h-5 w-5" />
+  <span>Proudly Australian-owned and operated</span>
+</div>
+</div>
+
+</div>      {/* closes .max-w-4xl */}
+</div>      {/* closes .container */}
+</section>  {/* closes #about */}
+
+{/* Services */}
+
       <section id="services" className="py-20 bg-gradient-to-br from-blue-50 to-slate-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -180,9 +209,9 @@ const Home = () => {
                 <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
                   <Clock className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">24/7 Availability</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Always On, Always Reliable</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  Never miss a call, inquiry, or opportunity. Your AI Customer Service team works round the clock, every day of the year.
+                  Instant responses 24/7. No queues, no missed calls — just consistent service.
                 </p>
               </div>
             </div>
@@ -191,9 +220,9 @@ const Home = () => {
                 <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
                   <DollarSign className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Cost Reduction</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Lower Costs, Higher Impact</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  Cut admin costs by up to 70% while maintaining premium service quality. Smart business, smarter savings.
+                  Replace unpredictable staffing costs with a dependable AI receptionist that scales.
                 </p>
               </div>
             </div>
@@ -202,9 +231,9 @@ const Home = () => {
                 <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
                   <Zap className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Fast Setup</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Live in Days</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  Up and running in hours, not weeks. Our efficient deployment process gets you operational immediately.
+                  Minimal lift for your team. We configure, integrate, and launch quickly.
                 </p>
               </div>
             </div>
@@ -213,9 +242,9 @@ const Home = () => {
                 <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
                   <Phone className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Zero Downtime</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Dependable by Design</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  No sick days, no breaks, no holidays. Consistent, reliable service that you and your clients can depend on.
+                  No sick leave or downtime. Just reliable call handling your clients can trust.
                 </p>
               </div>
             </div>
@@ -238,28 +267,28 @@ const Home = () => {
             <div className="grid md:grid-cols-2 gap-8">
               {[
                 [
-                  "Former CEO Leadership",
-                  "Strategic business insight drives every solution we deliver, ensuring alignment with your executive vision.",
+                  "Led by Experience",
+                  "Founded by a former CEO who understands delivery, risk, and real-world outcomes.",
                 ],
                 [
-                  "Australian-Based Excellence",
-                  "Local expertise, local support. We understand the Australian business landscape inside and out.",
+                  "Local Insight, Global Standards",
+                  "Australian-based team with world-class AI expertise and support.",
                 ],
                 [
                   "Seamless Integration",
-                  "Our AI Customer Support team integrate smoothly with your existing systems, workflows, and business processes.",
+                  "Works with your tools and workflows, not against them.",
+                ],
+                [
+                  "Tailored to You",
+                  "From small teams to enterprise, solutions scale with your needs.",
                 ],
                 [
                   "Premium Client Experience",
-                  "Your clients deserve the best. Our AI delivers professional, personalised interactions every time.",
+                  "Executive-level onboarding, training, and governance.",
                 ],
                 [
-                  "Scalable Solutions",
-                  "Grow without limits. Our technology scales effortlessly as your business expands.",
-                ],
-                [
-                  "Ongoing Support",
-                  "We're with you every step of the way, providing continuous optimisation and support.",
+                  "Human + AI Support",
+                  "Real people, real accountability, and continuous optimisation.",
                 ],
               ].map(([title, desc], idx) => (
                 <div key={idx} className="flex gap-4 items-start group">
