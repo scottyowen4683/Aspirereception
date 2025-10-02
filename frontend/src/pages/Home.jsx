@@ -170,61 +170,65 @@ const Home = () => {
         </div>
       </section>
 
-      {/* NEW: AI Receptionist Teaser (clear product pitch) */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 font-semibold px-3 py-1 rounded-full mb-4">
-              <span className="text-xs tracking-wide">NEW</span>
-              <span className="text-xs">Flagship Product</span>
-            </div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
-              Introducing the <span className="text-blue-600">Aspire AI Receptionist</span>
-            </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-8">
-              Never miss a client call again. Our AI Receptionist answers 24/7 in your tone,
-              books appointments, captures leads, and routes urgent calls to a human instantly —
-              everything a receptionist does, at a fraction of the cost.
-            </p>
+      {/* AI Receptionist Teaser (with image) */}
+<section className="py-20 bg-white">
+  <div className="container mx-auto px-6">
+    <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
+      {/* Left: copy + CTAs */}
+      <div>
+        <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 font-semibold px-3 py-1 rounded-full mb-4">
+          <span className="text-xs tracking-wide">NEW</span>
+          <span className="text-xs">Flagship Product</span>
+        </div>
+        <h2 className="text-4xl font-bold text-slate-900 mb-4">
+          Aspire <span className="text-blue-600">AI Receptionist</span>
+        </h2>
+        <p className="text-lg text-slate-600 mb-6">
+          Never miss a client call again. 24/7 answering in your tone, bookings,
+          lead capture, and instant human routing at a fraction of a salary.
+        </p>
 
-            <div className="grid md:grid-cols-4 gap-6 mb-10">
-              <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                  <Clock className="h-7 w-7 text-blue-600" />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1">24/7 Availability</h3>
-                <p className="text-slate-600 text-sm">
-                  Instant answering, day or night. No more missed revenue.
-                </p>
-              </div>
-              <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                  <DollarSign className="h-7 w-7 text-blue-600" />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1">Lower Cost</h3>
-                <p className="text-slate-600 text-sm">
-                  Save up to 70% vs. full-time reception staffing.
-                </p>
-              </div>
-              <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                  <Zap className="h-7 w-7 text-blue-600" />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1">Fast Setup</h3>
-                <p className="text-slate-600 text-sm">
-                  Live in days, not weeks. We load your scripts and flows.
-                </p>
-              </div>
-              <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                  <Phone className="h-7 w-7 text-blue-600" />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1">Human Routing</h3>
-                <p className="text-slate-600 text-sm">
-                  VIP/emergency calls escalated to a human instantly.
-                </p>
-              </div>
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          {[
+            ["24/7 Coverage", "Round-the-clock availability."],
+            ["Lower Cost", "Save up to 70% vs staffing."],
+            ["Fast Setup", "Live in days, not weeks."],
+            ["Human Routing", "Escalate urgent calls."],
+          ].map(([t, d]) => (
+            <div key={t} className="rounded-xl border border-slate-200 p-4 bg-white">
+              <div className="text-sm font-semibold text-slate-900">{t}</div>
+              <div className="text-sm text-slate-600">{d}</div>
             </div>
+          ))}
+        </div>
+
+        <div className="flex gap-4">
+          <a href="https://calendly.com/scott-owen-aspire/ai-receptionist-demo">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium">
+              📞 Book a Demo
+            </button>
+          </a>
+          <Link to="/ai-receptionist">
+            <button className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-md font-medium">
+              Learn More
+            </button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Right: image */}
+      <div className="relative">
+        <img
+          src="https://images.unsplash.com/photo-1527960471264-932f39eb5840?q=80&w=1600&auto=format&fit=crop"
+          alt="Professional call handling"
+          className="rounded-2xl shadow-xl border border-slate-200"
+          loading="lazy"
+        />
+        <div className="absolute -bottom-5 -left-5 hidden md:block w-24 h-24 rounded-2xl bg-blue-100" />
+      </div>
+    </div>
+  </div>
+</section>
 
             <div className="flex gap-4 justify-center">
               <a href="https://calendly.com/scott-owen-aspire/ai-receptionist-demo">
