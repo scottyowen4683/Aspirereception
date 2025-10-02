@@ -1,6 +1,5 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import { Clock, DollarSign, Phone, Zap, ShieldCheck, Calendar, ArrowRight } from "lucide-react";
 
 export default function AiReceptionist() {
   return (
@@ -35,13 +34,13 @@ export default function AiReceptionist() {
                   href="https://calendly.com/scott-owen-aspire/ai-receptionist-demo"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium inline-flex items-center gap-2"
                 >
-                  <Calendar className="h-5 w-5" /> Book a Free Demo
+                  <span aria-hidden>📅</span> Book a Free Demo
                 </a>
                 <a
                   href="#how-it-works"
                   className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-md font-medium inline-flex items-center gap-2"
                 >
-                  How It Works <ArrowRight className="h-5 w-5" />
+                  How It Works <span aria-hidden>→</span>
                 </a>
               </div>
               <div className="text-sm text-slate-500">
@@ -98,29 +97,29 @@ export default function AiReceptionist() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                icon: <Phone className="h-7 w-7 text-blue-600" />,
+                icon: "☎️",
                 title: "Connect",
                 desc: "We connect to your number (or provide a dedicated line) and set routing rules."
               },
               {
-                icon: <Zap className="h-7 w-7 text-blue-600" />,
+                icon: "⚙️",
                 title: "Customise",
                 desc: "We load your scripts, tone, FAQs, booking rules, and escalation paths."
               },
               {
-                icon: <Clock className="h-7 w-7 text-blue-600" />,
+                icon: "⏱️",
                 title: "Answer",
                 desc: "AI answers instantly 24/7, qualifies, books appointments, and captures leads."
               },
               {
-                icon: <ShieldCheck className="h-7 w-7 text-blue-600" />,
+                icon: "🛡️",
                 title: "Route",
                 desc: "VIP/emergency triggers escalate to a human instantly with full context."
               }
             ].map(({ icon, title, desc }) => (
               <div key={title} className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                  {icon}
+                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 text-2xl">
+                  <span aria-hidden>{icon}</span>
                 </div>
                 <h3 className="font-bold text-slate-900 mb-1">{title}</h3>
                 <p className="text-slate-600 text-sm">{desc}</p>
@@ -156,7 +155,7 @@ export default function AiReceptionist() {
               },
               {
                 name: "Growth",
-                price: "$3,500/mo",
+                price: "$4,500/mo",
                 points: ["Extended hours", "2–3 lines", "Bookings + CRM sync"]
               },
               {
@@ -197,7 +196,7 @@ export default function AiReceptionist() {
               ],
               [
                 "Can it book into my calendar/CRM?",
-                "Yes. We can push bookings and leads to tools like Google Calendar, Outlook, HubSpot, and many more."
+                "Yes. We can push bookings and leads to tools like Google Calendar, Outlook, HubSpot, or Go High Level."
               ],
               [
                 "What happens with urgent calls?",
@@ -205,7 +204,7 @@ export default function AiReceptionist() {
               ],
               [
                 "Will it sound robotic?",
-                "No. We use natural tones and approved scripts, and we keep improving based on call outcomes."
+                "No. We use your tone and approved scripts, and we keep improving based on call outcomes."
               ]
             ].map(([q, a]) => (
               <div key={q} className="rounded-xl border border-slate-200 p-5">
