@@ -113,7 +113,7 @@ const Home = () => {
 </h1>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl mx-auto">
               Never lose business to voicemail again. Our AI receptionist is professional,
-  always available, and tailored to your brand — answering, booking, and
+  always available, and tailored to your brand. Answering, booking, and
   routing calls 24/7.
             </p>
             <div className="flex gap-4 justify-center">
@@ -130,7 +130,7 @@ const Home = () => {
             </div>
             <p className="mt-4 text-sm text-slate-500">
               Reduce overheads, never miss a call, and deliver a premium first
-              impression—every time.
+              impression, every time.
             </p>
           </div>
         </div>
@@ -147,26 +147,45 @@ const Home = () => {
               <div className="w-20 h-1 bg-blue-600 mx-auto" />
             </div>
             <div className="bg-slate-50 rounded-2xl p-8 md:p-12 border border-slate-200">
-              <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                Aspire isn’t another tech vendor. We’re led by a former CEO who
-                has transformed complex organisations. Our solutions combine
-                real-world leadership with cutting-edge AI, so you get measurable
-                outcomes: faster response times, lower costs, and a consistently
-                premium customer experience.
-              </p>
-              <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                By uniting strategic business acumen with advanced AI customer
-                service, we deliver solutions that don’t just answer calls — they
-                elevate your entire customer journey.
-              </p>
-              <div className="flex items-center gap-3 text-blue-600 font-semibold">
-                <MapPin className="h-5 w-5" />
-                <span>Proudly Australian-owned and operated</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+     <p className="text-lg text-slate-700 leading-relaxed mb-6">
+  Aspire isn’t another tech vendor. We’re led by a former CEO who has
+  transformed complex organisations. Our solutions combine real-world
+  leadership with cutting-edge AI, so you get measurable outcomes,
+  faster response times, lower costs, and a consistently premium
+  customer experience. Simpler, faster, better.
+</p>
+
+<p className="text-lg text-slate-700 leading-relaxed mb-6">
+  With our strategic business acumen and advanced AI, we deliver a
+  complete Aspire platform, from the first call through to conversion,
+  retention, and beyond. It’s not just about answering calls, it’s about
+  elevating your entire customer journey.
+</p>
+
+<div className="grid sm:grid-cols-2 gap-3 mb-6">
+  {[
+    ["Smart CRM & Pipeline", "Track every enquiry from first contact through to close."],
+    ["Automated Workflows", "Seamless follow-ups by SMS and email that convert leads into clients."],
+    ["Bookings & Scheduling", "Integrated calendars that cut no-shows and maximise utilisation."],
+    ["Call & Message Tracking", "Full visibility across every conversation and touchpoint."],
+    ["Audits & Reporting", "Executive dashboards with real-time ROI insights."],
+    ["Reputation Management", "Automated review requests to grow and protect your brand."],
+  ].map(([title, desc]) => (
+    <div
+      key={title}
+      className="rounded-xl border border-slate-200 bg-white p-4"
+    >
+      <div className="text-slate-900 font-semibold">{title}</div>
+      <div className="text-slate-600 text-sm">{desc}</div>
+    </div>
+  ))}
+</div>
+
+<div className="flex items-center gap-3 text-blue-600 font-semibold">
+  <MapPin className="h-5 w-5" />
+  <span>Proudly Australian-owned and operated</span>
+</div>
+
 
       {/* Services */}
       <section id="services" className="py-20 bg-gradient-to-br from-blue-50 to-slate-50">
