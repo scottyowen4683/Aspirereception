@@ -187,7 +187,12 @@ const Home = () => {
 </div>
 </div>
 
-      {/* Services */}
+</div>      {/* closes .max-w-4xl */}
+</div>      {/* closes .container */}
+</section>  {/* closes #about */}
+
+{/* Services */}
+
       <section id="services" className="py-20 bg-gradient-to-br from-blue-50 to-slate-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
