@@ -15,6 +15,17 @@
       data-widget-id="68de330a0160d118b515f4b6"> 
     </script>
 
+    <!-- Auto-open widget after 5 seconds -->
+    <script>
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          if (window.LC_API && window.LC_API.open_chat_window) {
+            window.LC_API.open_chat_window();
+          }
+        }, 5000); // 5000 ms = 5 seconds
+      });
+    </script>
+
     <!-- Your React App -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
