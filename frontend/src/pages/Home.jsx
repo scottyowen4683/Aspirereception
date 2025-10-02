@@ -105,13 +105,16 @@ const Home = () => {
       <section className="pt-32 pb-20 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-              The Executive Standard in AI Reception.
-            </h1>
+           <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+  Missed Calls Cost Money.
+  <span className="block text-blue-600 mt-2">
+    We Don’t Miss a Thing.
+  </span>
+</h1>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl mx-auto">
-              Professional, always available, and tailored to your business — a
-              receptionist you can rely on 24/7 for answering, booking, and call
-              routing.
+              Never lose business to voicemail again. Our AI receptionist is professional,
+  always available, and tailored to your brand — answering, booking, and
+  routing calls 24/7.
             </p>
             <div className="flex gap-4 justify-center">
               <a href="https://calendly.com/scott-owen-aspire/ai-receptionist-demo">
