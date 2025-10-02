@@ -24,6 +24,7 @@ const Home = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,29 +56,44 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Header */}
-   <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-slate-200 z-50">
+  <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-slate-200 z-50">
   <div className="container mx-auto px-6 py-4 flex justify-between items-center">
     {/* Logo */}
     <div className="flex items-center gap-3">
       <img
-        src="..."
+        src="https://customer-assets.emergentagent.com/job_6e1b7f8b-8033-4253-aef3-794266462fd0/artifacts/0jw7k2x6_Jpeg-01.jpg"
         alt="Aspire Executive Solutions"
         className="h-12 w-auto"
       />
     </div>
 
-    {/* Desktop nav (only visible ≥ md) */}
+    {/* Desktop nav */}
     <nav className="hidden md:flex gap-8 items-center">
-      <a href="#about" className="...">About</a>
-      <Link to="/ai-receptionist" className="...">AI Receptionist</Link>
-      <a href="#why-us" className="...">Why Us</a>
-      <a href="https://aspireexecutive.com.au" ...>Executive Search</a>
+      <a href="#about" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
+        About
+      </a>
+      <Link to="/ai-receptionist" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
+        AI Receptionist
+      </Link>
+      <a href="#why-us" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
+        Why Us
+      </a>
+      <a
+        href="https://aspireexecutive.com.au"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-slate-700 hover:text-blue-600 transition-colors font-medium flex items-center gap-1"
+      >
+        Executive Search <ExternalLink className="h-3 w-3" />
+      </a>
       <a href="#contact">
-        <button className="bg-blue-600 ...">Contact Us</button>
+        <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2">
+          Contact Us
+        </button>
       </a>
     </nav>
 
-    {/* Mobile hamburger (only visible < md) */}
+    {/* Mobile hamburger */}
     <div className="md:hidden">
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -90,53 +106,50 @@ const Home = () => {
     </div>
   </div>
 
-{/* Mobile dropdown menu */}
-{mobileMenuOpen && (
-  <div
-    className="md:hidden bg-white border-t border-slate-200 shadow-sm transition-all duration-300 ease-in-out"
-  >
-    <div className="flex flex-col px-6 py-4 space-y-4">
-      <a
-        href="#about"
-        onClick={() => setMobileMenuOpen(false)}
-        className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
-      >
-        About
-      </a>
-      <Link
-        to="/ai-receptionist"
-        onClick={() => setMobileMenuOpen(false)}
-        className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
-      >
-        AI Receptionist
-      </Link>
-      <a
-        href="#why-us"
-        onClick={() => setMobileMenuOpen(false)}
-        className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
-      >
-        Why Us
-      </a>
-      <a
-        href="https://aspireexecutive.com.au"
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => setMobileMenuOpen(false)}
-        className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
-      >
-        Executive Search
-      </a>
-      <a
-        href="#contact"
-        onClick={() => setMobileMenuOpen(false)}
-        className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 text-center"
-      >
-        Contact Us
-      </a>
+  {/* Mobile dropdown menu */}
+  {mobileMenuOpen && (
+    <div className="md:hidden bg-white border-t border-slate-200 shadow-sm">
+      <div className="flex flex-col px-6 py-4 space-y-4">
+        <a
+          href="#about"
+          onClick={() => setMobileMenuOpen(false)}
+          className="text-slate-700 hover:text-blue-600 font-medium"
+        >
+          About
+        </a>
+        <Link
+          to="/ai-receptionist"
+          onClick={() => setMobileMenuOpen(false)}
+          className="text-slate-700 hover:text-blue-600 font-medium"
+        >
+          AI Receptionist
+        </Link>
+        <a
+          href="#why-us"
+          onClick={() => setMobileMenuOpen(false)}
+          className="text-slate-700 hover:text-blue-600 font-medium"
+        >
+          Why Us
+        </a>
+        <a
+          href="https://aspireexecutive.com.au"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setMobileMenuOpen(false)}
+          className="text-slate-700 hover:text-blue-600 font-medium"
+        >
+          Executive Search
+        </a>
+        <a
+          href="#contact"
+          onClick={() => setMobileMenuOpen(false)}
+          className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 text-center"
+        >
+          Contact Us
+        </a>
+      </div>
     </div>
-  </div>
-)}
-
+  )}
 </header>
 
 {/* Hero */}
