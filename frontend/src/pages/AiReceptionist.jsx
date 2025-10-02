@@ -281,6 +281,7 @@ export default function AiReceptionist() {
               <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
               <p className="text-xl text-blue-100">
                 Have questions? Send a message — we’ll get back within 24 hours.
+                Need real executive support?  We do that too!
               </p>
             </div>
 
