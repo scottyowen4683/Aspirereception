@@ -185,7 +185,7 @@ const Home = () => {
   <MapPin className="h-5 w-5" />
   <span>Proudly Australian-owned and operated</span>
 </div>
-
+</div>
 
       {/* Services */}
       <section id="services" className="py-20 bg-gradient-to-br from-blue-50 to-slate-50">
