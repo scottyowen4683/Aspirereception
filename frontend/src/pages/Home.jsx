@@ -92,7 +92,9 @@ const Home = () => {
 
 {/* Mobile dropdown menu */}
 {mobileMenuOpen && (
-  <div className="md:hidden bg-white border-t border-slate-200 shadow-sm">
+  <div
+    className="md:hidden bg-white border-t border-slate-200 shadow-sm transition-all duration-300 ease-in-out"
+  >
     <div className="flex flex-col px-6 py-4 space-y-4">
       <a
         href="#about"
@@ -134,6 +136,7 @@ const Home = () => {
     </div>
   </div>
 )}
+
 </header>
 
 {/* Hero */}
