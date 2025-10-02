@@ -64,7 +64,7 @@ const Home = () => {
               className="h-12 w-auto"
             />
           </div>
-          <nav className="hidden md:flex gap-8 items-center">
+         <nav className="flex gap-8 items-center">
             <a
               href="#about"
               className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
