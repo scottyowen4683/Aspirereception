@@ -179,7 +179,6 @@ export default function AiReceptionist() {
               "Medical & Allied Health",
               "Real Estate & PM",
               "Law & Accounting",
-              "Anyone who hates missing calls!",
             ].map((x) => (
               <div
                 key={x}
