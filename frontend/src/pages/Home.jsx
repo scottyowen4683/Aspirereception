@@ -22,7 +22,7 @@ const API = `${BACKEND_URL}/api`;
 
 // Assets you provided
 const ASPIRE_LOGO =
-  "https://raw.githubusercontent.com/scottyowen4683/Aspirereception/refs/heads/feature/ai-receptionist/frontend/aspire.png";
+  "https://raw.githubusercontent.com/scottyowen4683/Aspirereception/refs/heads/main/frontend/aspire1.png";
 const LOCAL_BUY_LOGO =
   "https://raw.githubusercontent.com/scottyowen4683/Aspirereception/refs/heads/feature/ai-receptionist/frontend/src/localbuy.png";
 
