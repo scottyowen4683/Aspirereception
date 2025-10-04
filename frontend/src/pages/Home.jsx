@@ -529,66 +529,117 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Contact */}
-      <section
-        id="contact"
-        className="py-20 bg-gradient-to-br from-slate-900 to-blue-900 text-white"
-      >
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">
-              Ready to Transform Customer Service?
-            </h2>
-            <p className="text-xl text-blue-100">
-              Simpler. Faster. Better. Let AI do the routine while your staff
-              focus on what matters.
-            </p>
+    {/* Contact */}
+<section
+  id="contact"
+  className="py-20 bg-gradient-to-br from-slate-900 to-blue-900 text-white"
+>
+  <div className="container mx-auto px-6 max-w-6xl">
+    <div className="text-center mb-12">
+      <h2 className="text-4xl font-bold mb-4">
+        Ready to Transform Customer Service?
+      </h2>
+      <p className="text-xl text-blue-100">
+        Simpler. Faster. Better. Let AI do the routine while your staff
+        focus on what matters.
+      </p>
+    </div>
+    <div className="grid md:grid-cols-2 gap-12">
+      {/* Contact Info */}
+      <div>
+        <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+        <div className="space-y-6">
+          <div className="flex items-start gap-4">
+            <div className="bg-blue-600 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Mail className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="font-semibold mb-1">Email Us</p>
+              <a
+                href="mailto:scott@aspireexecutive.com.au"
+                className="text-blue-200 hover:text-white transition-colors"
+              >
+                scott@aspireexecutive.com.au
+              </a>
+            </div>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
-            />
-            <input
-              name="email"
-              type="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
-            />
-            <input
-              name="phone"
-              type="tel"
-              placeholder="Phone Number"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
-            />
-            <textarea
-              name="message"
-              placeholder="Tell us about your needs..."
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={4}
-              className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
-            />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-3 font-medium"
-            >
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </button>
-          </form>
+          <div className="flex items-start gap-4">
+            <div className="bg-blue-600 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+              <MapPin className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="font-semibold mb-1">Location</p>
+              <p className="text-blue-200">Australia</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="bg-blue-600 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+              <ExternalLink className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="font-semibold mb-1">Executive Search Services</p>
+              <a
+                href="https://aspireexecutive.com.au"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-200 hover:text-white transition-colors"
+              >
+                aspireexecutive.com.au
+              </a>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
+
+      {/* Contact Form */}
+      <div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            name="name"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Your Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
+          />
+          <input
+            name="phone"
+            type="tel"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
+          />
+          <textarea
+            name="message"
+            placeholder="Tell us about your needs..."
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows={4}
+            className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
+          />
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-3 font-medium"
+          >
+            {isSubmitting ? "Sending..." : "Send Message"}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Footer (logo kept transparent — no invert) */}
       <footer className="bg-slate-900 text-slate-400 py-8 border-t border-slate-800">
