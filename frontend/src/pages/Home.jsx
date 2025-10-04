@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {
   Phone,
   Clock,
+  DollarSign,
   Zap,
   CheckCircle,
   Mail,
@@ -13,6 +14,7 @@ import {
   ShieldCheck,
   PlugZap,
   MessageSquare,
+  FileText,
 } from "lucide-react";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -88,13 +90,11 @@ const Home = () => {
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-slate-200 z-50">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <img
-              src={ASPIRE_LOGO}
-              alt="Aspire Executive Solutions"
-              className="h-12 w-auto"
-            />
-          </div>
+          <img
+            src={ASPIRE_LOGO}
+            alt="Aspire Executive Solutions"
+            className="h-12 w-auto"
+          />
 
           {/* Desktop nav */}
           <nav className="hidden md:flex gap-8 items-center">
@@ -103,6 +103,12 @@ const Home = () => {
               className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
             >
               About
+            </a>
+            <a
+              href="#services"
+              className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
+            >
+              Services
             </a>
             <a
               href="#features"
@@ -166,41 +172,23 @@ const Home = () => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-slate-200 shadow-sm">
             <div className="flex flex-col px-6 py-4 space-y-4">
-              <a
-                href="#about"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-slate-700 hover:text-blue-600 font-medium"
-              >
-                About
-              </a>
-              <a
-                href="#features"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-slate-700 hover:text-blue-600 font-medium"
-              >
-                Solutions
-              </a>
-              <a
-                href="#compliance"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-slate-700 hover:text-blue-600 font-medium"
-              >
-                Compliance
-              </a>
-              <a
-                href="#use-cases"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-slate-700 hover:text-blue-600 font-medium"
-              >
-                Use Cases
-              </a>
-              <a
-                href="#pricing"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-slate-700 hover:text-blue-600 font-medium"
-              >
-                Pricing
-              </a>
+              {[
+                ["#about", "About"],
+                ["#services", "Services"],
+                ["#features", "Solutions"],
+                ["#compliance", "Compliance"],
+                ["#use-cases", "Use Cases"],
+                ["#pricing", "Pricing"],
+              ].map(([href, label]) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-slate-700 hover:text-blue-600 font-medium"
+                >
+                  {label}
+                </a>
+              ))}
               <a
                 href="https://aspireexecutive.com.au"
                 target="_blank"
@@ -224,476 +212,434 @@ const Home = () => {
 
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              <span className="block text-slate-900">Community expectations rise.</span>
-              <span className="block text-blue-600 mt-1">We stay ahead.</span>
-            </h1>
-            <p className="text-xl text-slate-700 mb-8 leading-relaxed max-w-3xl mx-auto">
-              Aspire delivers 24/7 community support with Australian-based data
-              compliance and seamless integration into council systems. Let AI
-              handle routine enquiries so your staff can focus on complex,
-              high-value work.
-            </p>
-            <div className="flex gap-4 justify-center flex-wrap">
-              <a href={BOOKING_URL}>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-md transition-transform hover:scale-105">
-                  Book a Demo
-                </button>
-              </a>
-              <a href="#demo">
-                <button className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 text-lg rounded-md transition-all">
-                  See It in Action
-                </button>
-              </a>
-              <a href={`tel:${DEMO_NUMBER.replace(/\s/g, "")}`}>
-                <button className="border-2 border-slate-300 text-slate-800 hover:bg-white px-8 py-3 text-lg rounded-md transition-all inline-flex items-center gap-2">
-                  <Phone className="h-5 w-5" />
-                  Call the AI Demo: {DEMO_NUMBER}
-                </button>
-              </a>
-            </div>
+        <div className="container mx-auto px-6 text-center max-w-5xl">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <span className="block text-slate-900">Community expectations rise.</span>
+            <span className="block text-blue-600 mt-1">We stay ahead.</span>
+          </h1>
+          <p className="text-xl text-slate-700 mb-8 leading-relaxed max-w-3xl mx-auto">
+            Aspire delivers 24/7 community support with Australian-based data
+            compliance and seamless integration into council systems. Let AI
+            handle routine enquiries so your staff can focus on complex,
+            high-value work.
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <a
+              href={BOOKING_URL}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-md"
+            >
+              Book a Demo
+            </a>
+            <a
+              href="#demo"
+              className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 text-lg rounded-md"
+            >
+              See It in Action
+            </a>
+            <a
+              href={`tel:${DEMO_NUMBER.replace(/\s/g, "")}`}
+              className="border-2 border-slate-300 text-slate-800 hover:bg-white px-8 py-3 text-lg rounded-md flex items-center gap-2"
+            >
+              <Phone className="h-5 w-5" />
+              Call the AI Demo: {DEMO_NUMBER}
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Fancier Launch Offer */}
+      {/* Launch Offer */}
       <section className="py-6">
         <div className="container mx-auto px-6">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">
-            <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
-            <div className="absolute -bottom-12 -left-12 h-44 w-44 rounded-full bg-white/10 blur-2xl" />
-            <div className="px-6 md:px-10 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="text-center md:text-left">
-                <p className="text-sm uppercase tracking-wider font-semibold">
-                  Launch Offer
-                </p>
-                <p className="text-xl md:text-2xl font-bold mt-1">
-                  Setup Fee <span className="line-through opacity-80">$10,000</span>{" "}
-                  <span className="mx-2">→</span>
-                  <span className="inline-block bg-white/20 px-2 py-1 rounded-md">
-                    FREE for the first 3 councils
-                  </span>
-                </p>
-              </div>
-              <a
-                href="#contact"
-                className="rounded-xl bg-white text-blue-700 font-semibold px-5 py-3 hover:bg-blue-50"
-              >
-                Claim Offer
-              </a>
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg px-6 md:px-10 py-6 flex flex-col md:flex-row items-center justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-wider">Launch Offer</p>
+              <p className="text-xl md:text-2xl font-bold mt-1">
+                Setup Fee <span className="line-through opacity-80">$10,000</span> →{" "}
+                <span className="bg-white/20 px-2 py-1 rounded-md">
+                  FREE for the first 3 councils
+                </span>
+              </p>
             </div>
+            <a
+              href="#contact"
+              className="mt-4 md:mt-0 rounded-xl bg-white text-blue-700 font-semibold px-5 py-3 hover:bg-blue-50"
+            >
+              Claim Offer
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Single Local Buy trust section */}
+      {/* Local Buy */}
       <section className="py-6">
         <div className="container mx-auto px-6">
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-center justify-center gap-4">
             <img src={LOCAL_BUY_LOGO} alt="Local Buy" className="h-8 w-auto" />
-            <span className="text-slate-700 font-medium">Local Buy Approved Supplier</span>
+            <span className="text-slate-700 font-medium">
+              Local Buy Approved Supplier
+            </span>
           </div>
         </div>
       </section>
 
-      {/* About (Executive intro kept) */}
+      {/* About */}
       <section id="about" className="py-16 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">
-                Executive Leadership, Innovative Solutions
-              </h2>
-              <div className="w-20 h-1 bg-blue-600 mx-auto" />
-            </div>
-            <div className="bg-slate-50 rounded-2xl p-8 md:p-12 border border-slate-200">
-              <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                Aspire isn’t another tech vendor. We’re led by a former council CEO who understands
-                how government operates and what communities expect. We specialise in premium
-                AI-powered customer service solutions designed specifically for councils.
-              </p>
-
-              <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                With real-world leadership and advanced AI, we deliver a complete platform—from the
-                first call through to bookings, complaints, and service requests. It’s not just
-                about answering calls; it’s about elevating your entire customer journey.
-              </p>
-
-              <div className="flex items-center gap-3 text-blue-600 font-semibold">
-                <MapPin className="h-5 w-5" />
-                <span>Proudly Australian-owned and operated</span>
-              </div>
-            </div>
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              Executive Leadership, Innovative Solutions
+            </h2>
+            <div className="w-20 h-1 bg-blue-600 mx-auto" />
           </div>
+          <p className="text-lg text-slate-700 mb-6">
+            Aspire isn’t another tech vendor. We’re led by a former council CEO
+            who understands government operations and community expectations. We
+            specialise in premium AI-powered customer service solutions designed
+            specifically for councils.
+          </p>
+          <p className="text-lg text-slate-700 mb-6">
+            With real-world leadership and advanced AI, we deliver a complete
+            platform—from the first call through to bookings, complaints, and
+            service requests. It’s not just about answering calls; it’s about
+            elevating your entire customer journey.
+          </p>
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="py-16 bg-gradient-to-br from-blue-50 to-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
-              AI Customer Service — Built for Councils
-            </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Multi-channel service that never takes a day off.
+      {/* Services (the 4-card grid you had) */}
+      <section id="services" className="py-20 bg-gradient-to-br from-blue-50 to-slate-50">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">AI Customer Service</h2>
+            <p className="text-xl text-slate-600">
+              Multi-channel service that never takes a day off
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Feature
-              icon={<Clock className="h-7 w-7" />}
-              title="24/7 Community Service"
-              text="No queues, no missed calls — reliable service anytime."
+              icon={<Clock />}
+              title="Always On, Always Reliable"
+              text="Instant responses 24/7. No queues, no missed calls — just consistent service."
             />
             <Feature
-              icon={<ShieldCheck className="h-7 w-7" />}
-              title="Data Compliance by Design"
-              text="Privacy Act 1988 (Cth) & APP aligned. AU data residency."
+              icon={<DollarSign />}
+              title="Lower Costs, Higher Impact"
+              text="Replace unpredictable staffing costs with dependable AI that scales."
             />
             <Feature
-              icon={<PlugZap className="h-7 w-7" />}
-              title="Seamless Council Integration"
-              text="Works with TechOne, SAP, Civica or via structured email workflows."
+              icon={<Zap />}
+              title="Live in Days"
+              text="Minimal lift for your team. We configure, integrate, and launch quickly."
             />
             <Feature
-              icon={<Phone className="h-7 w-7" />}
-              title="Human Escalation"
-              text="Urgent or complex matters transfer instantly to staff with full context."
+              icon={<Phone />}
+              title="Dependable by Design"
+              text="No sick leave or downtime. Just reliable handling your community can trust."
             />
           </div>
         </div>
       </section>
 
-      {/* Chatbot section (widget is already loaded; this is just the copy) */}
-      <section id="demo" className="py-16 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-3">
-                Talk to our Virtual Council Chat Bot
-              </h2>
-              <p className="text-slate-700">
-                Not just smarter phone calls — Aspire includes a fully customisable web chat bot
-                tailored to your services and workflows.
-              </p>
-              <ul className="mt-4 space-y-2 text-slate-700">
-                <li>• Deployed on this page — open the chat widget (bottom-right) to try it now.</li>
-                <li>• Answers FAQs instantly (rates, bins, bookings, councillor info).</li>
-                <li>• Escalates to staff or logs requests directly.</li>
-                <li>• Fully branded and configured for your community.</li>
-              </ul>
-              <div className="mt-6 inline-flex items-center gap-2 text-slate-700">
-                <MessageSquare className="h-5 w-5" />
-                <span>Prefer voice? Call the AI demo: {DEMO_NUMBER}</span>
-              </div>
-            </div>
-            <blockquote className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-              <p className="text-slate-700">
-                “Aspire takes care of routine enquiries, freeing our staff to focus on complex,
-                high-value community work.”
-              </p>
-              <div className="mt-4 flex items-center gap-3 text-sm text-slate-500">
-                <div className="h-8 w-8 rounded-full bg-slate-200" />
+      {/* Why Us (restored) */}
+      <section id="why-us" className="py-20 bg-white">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">Why Aspire?</h2>
+            <p className="text-xl text-slate-600">
+              Executive expertise meets intelligent innovation
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              [
+                "Led by Experience",
+                "Founded by a former CEO who understands delivery, risk, and outcomes.",
+              ],
+              [
+                "Local Insight, Global Standards",
+                "Australian-based with world-class AI expertise and support.",
+              ],
+              [
+                "Seamless Integration",
+                "Works with TechOne, SAP, Civica via structured email workflows (powered by GHL).",
+              ],
+              [
+                "Tailored to You",
+                "From small councils to enterprise, solutions scale with your needs.",
+              ],
+              [
+                "Premium Client Experience",
+                "Executive-level onboarding, training, and governance.",
+              ],
+              [
+                "Human + AI Support",
+                "Real people, real accountability, and continuous optimisation.",
+              ],
+            ].map(([title, desc], idx) => (
+              <div key={idx} className="flex gap-4 items-start group">
+                <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 transition-colors">
+                  <CheckCircle className="h-6 w-6 text-blue-600 group-hover:text-white transition-colors" />
+                </div>
                 <div>
-                  <p className="font-medium text-slate-700">Council Operations Lead</p>
-                  <p>Queensland</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{title}</h3>
+                  <p className="text-slate-600">{desc}</p>
                 </div>
               </div>
-            </blockquote>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Compliance (Privacy & Security) */}
-      <section id="compliance" className="py-16 bg-gradient-to-br from-slate-50 to-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">
-              Privacy, Security & Compliance
+      {/* Advanced Capabilities (kept, with your edits) */}
+      <section id="features" className="py-16 bg-gradient-to-br from-blue-50 to-slate-50">
+        <div className="container mx-auto px-6 text-center max-w-6xl">
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">Advanced Capabilities</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Feature
+              icon={<ShieldCheck />}
+              title="Data Compliance"
+              text="Privacy Act 1988 & APP aligned. AU data residency."
+            />
+            <Feature
+              icon={<PlugZap />}
+              title="Seamless Integration"
+              text="Works with TechOne, SAP, Civica via structured email workflows (powered by GHL)."
+            />
+            <Feature
+              icon={<MessageSquare />}
+              title="Chatbot + Voice"
+              text="Web chat and phone automation unified in one platform."
+            />
+            <Feature
+              icon={<FileText />}
+              title="Optional Full Transcripts"
+              text="Access full conversation transcripts for audits, training, and improvements."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Chatbot section (copy only – widget already loaded) */}
+      <section id="demo" className="py-16 bg-white">
+        <div className="container mx-auto px-6 max-w-6xl grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 className="text-3xl font-bold text-slate-900 mb-3">
+              Talk to our Virtual Council Chat Bot
             </h2>
-            <p className="text-slate-700 max-w-3xl">
-              Government-grade assurance with the flexibility of AI-driven efficiency.
+            <p className="text-slate-700">
+              Aspire includes a fully customisable web chat bot tailored to your services and workflows.
             </p>
-
-            <div className="mt-8 grid md:grid-cols-3 gap-6">
-              <Card title="Privacy Act 1988 (Cth)">
-                Fully aligned with the Australian Privacy Principles. Clear purpose, minimal
-                collection, and auditable handling.
-              </Card>
-              <Card title="Australian Data Residency">
-                All call data, transcripts, and interaction logs are stored securely within
-                Australia.
-              </Card>
-              <Card title="Security & SLAs">
-                TLS 1.2+ encryption in transit, role-based access, and SLA-backed uptime and
-                support response times.
-              </Card>
+            <ul className="mt-4 space-y-2 text-slate-700">
+              <li>• Try it now — open the chat widget (bottom-right).</li>
+              <li>• Answers FAQs instantly (rates, bins, bookings, councillor info).</li>
+              <li>• Escalates to staff or logs requests directly.</li>
+              <li>• Fully branded and configured for your community.</li>
+            </ul>
+            <div className="mt-6 inline-flex items-center gap-2 text-slate-700">
+              <MessageSquare className="h-5 w-5" />
+              <span>Prefer voice? Call the AI demo: {DEMO_NUMBER}</span>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <p className="mt-6 text-sm text-slate-600">
-              Need details?{" "}
-              <a href={BOOKING_URL} className="text-blue-700 hover:underline">
-                Request the Council Compliance Pack
-              </a>
-              .
-            </p>
+      {/* Compliance */}
+      <section id="compliance" className="py-16 bg-gradient-to-br from-slate-50 to-white">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">
+            Privacy, Security & Compliance
+          </h2>
+          <div className="mt-8 grid md:grid-cols-3 gap-6">
+            <Card title="Privacy Act 1988 (Cth)">
+              Aligned with APPs. Minimal collection, auditable handling.
+            </Card>
+            <Card title="Australian Data Residency">
+              All call data & transcripts stored securely in Australia.
+            </Card>
+            <Card title="Security & SLAs">
+              TLS 1.2+ encryption, RBAC, SLA-backed uptime & support.
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Use Cases */}
       <section id="use-cases" className="py-16 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">
-              Built for real council scenarios
-            </h2>
-            <p className="text-slate-700">
-              Aspire handles the routine so your teams can focus on what matters most.
-            </p>
-
-            <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                ["Rates & Payments", "Check balances, lodge queries, or request payment plans."],
-                ["Waste Services", "Missed bin reports, collection reminders, service changes."],
-                ["Facility & Event Bookings", "Reserve sports fields, halls, and community spaces."],
-                ["Community Information", "Councillor contacts, meetings, and local events."],
-                ["Complaints Handling", "Every complaint logged with an instant reference number."],
-                ["Service Requests", "Structured emails or API routes into existing systems."],
-              ].map(([title, desc]) => (
-                <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                  <p className="font-semibold">{title}</p>
-                  <p className="text-sm text-slate-600 mt-1">{desc}</p>
-                </div>
-              ))}
-            </div>
+        <div className="container mx-auto px-6 max-w-6xl">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">
+            Built for real council scenarios
+          </h2>
+          <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              ["Rates & Payments", "Check balances, lodge queries, or request payment plans."],
+              ["Waste Services", "Missed bin reports, collection reminders, service changes."],
+              ["Facility & Event Bookings", "Reserve sports fields, halls, and community spaces."],
+              ["Community Information", "Councillor contacts, meetings, and local events."],
+              ["Complaints Handling", "Every complaint logged with an instant reference number."],
+              ["Service Requests", "Structured emails or API routes into existing systems."],
+            ].map(([title, desc]) => (
+              <div
+                key={title}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
+              >
+                <p className="font-semibold">{title}</p>
+                <p className="text-sm text-slate-600 mt-1">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing (adjusted per your spec) */}
+      {/* Pricing */}
       <section id="pricing" className="py-16 bg-gradient-to-br from-blue-50 to-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">Pricing & Packages</h2>
-            <p className="text-slate-700">Simple tiers. Enterprise reliability.</p>
-
-            <div className="mt-8 grid md:grid-cols-3 gap-6">
-              {/* Essential */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <p className="text-sm font-semibold">Essential</p>
-                <p className="mt-2 text-3xl font-extrabold">POA</p>
-                <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                  <li>• Inbound call handling & requests</li>
-                  <li>• Chatbot integration</li>
-                  <li>• Quick deployment</li>
-                </ul>
-                <a
-                  href="#contact"
-                  className="mt-6 inline-block rounded-xl px-4 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700"
-                >
-                  Contact Us Now
-                </a>
-              </div>
-
-              {/* Advanced */}
-              <div className="rounded-2xl border border-blue-300 bg-blue-50 p-6">
-                <p className="text-sm font-semibold">Advanced</p>
-                <p className="mt-2 text-3xl font-extrabold">POA</p>
-                <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                  <li>• Everything in Essential</li>
-                  <li>• Integrations & workflows (e.g., TechOne/SAP or structured email)</li>
-                  <li>• Reporting & insights</li>
-                </ul>
-                <a
-                  href="#contact"
-                  className="mt-6 inline-block rounded-xl px-4 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700"
-                >
-                  Contact Us Now
-                </a>
-              </div>
-
-              {/* Premium */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <p className="text-sm font-semibold">Premium</p>
-                <p className="mt-2 text-3xl font-extrabold">Tailored</p>
-                <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                  <li>• Custom workflows & analytics</li>
-                  <li>• Priority SLA & support</li>
-                  <li>• Executive reporting</li>
-                </ul>
-                <a
-                  href="#contact"
-                  className="mt-6 inline-block rounded-xl px-4 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700"
-                >
-                  Contact Us Now
-                </a>
-              </div>
-            </div>
+        <div className="container mx-auto px-6 max-w-6xl">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">
+            Pricing & Packages
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6 mt-8">
+            <Package
+              name="Essential"
+              price="POA"
+              features={[
+                "Inbound call handling & requests",
+                "Chatbot integration",
+                "Quick deployment",
+              ]}
+            />
+            <Package
+              name="Advanced"
+              price="POA"
+              highlighted
+              features={[
+                "Everything in Essential",
+                "Integrations & workflows",
+                "Reporting & insights",
+              ]}
+            />
+            <Package
+              name="Premium"
+              price="Tailored"
+              features={[
+                "Custom workflows & analytics",
+                "Priority SLA & support",
+                "Executive reporting",
+              ]}
+            />
           </div>
         </div>
       </section>
 
-      {/* Contact (kept your original functional form) */}
+      {/* Contact */}
       <section
         id="contact"
         className="py-20 bg-gradient-to-br from-slate-900 to-blue-900 text-white"
       >
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">
-                Ready to Transform Customer Service?
-              </h2>
-              <p className="text-xl text-blue-100">
-                Simpler. Faster. Better. Let AI do the routine while your staff focus on what matters.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-blue-600 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Mail className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="font-semibold mb-1">Email Us</p>
-                      <a
-                        href="mailto:scott@aspireexecutive.com.au"
-                        className="text-blue-200 hover:text-white transition-colors"
-                      >
-                        scott@aspireexecutive.com.au
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="bg-blue-600 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="font-semibold mb-1">Location</p>
-                      <p className="text-blue-200">Australia</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="bg-blue-600 w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <ExternalLink className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="font-semibold mb-1">Executive Search Services</p>
-                      <a
-                        href="https://aspireexecutive.com.au"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-200 hover:text-white transition-colors"
-                      >
-                        aspireexecutive.com.au
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <input
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  />
-                  <input
-                    name="email"
-                    type="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  />
-                  <input
-                    name="phone"
-                    type="tel"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  />
-                  <textarea
-                    name="message"
-                    placeholder="Tell us about your needs..."
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  />
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-3 font-medium transition-transform hover:scale-105"
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </button>
-                </form>
-              </div>
-            </div>
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">
+              Ready to Transform Customer Service?
+            </h2>
+            <p className="text-xl text-blue-100">
+              Simpler. Faster. Better. Let AI do the routine while your staff
+              focus on what matters.
+            </p>
           </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              name="name"
+              placeholder="Your Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
+            />
+            <input
+              name="email"
+              type="email"
+              placeholder="Your Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
+            />
+            <input
+              name="phone"
+              type="tel"
+              placeholder="Phone Number"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
+            />
+            <textarea
+              name="message"
+              placeholder="Tell us about your needs..."
+              value={formData.message}
+              onChange={handleChange}
+              required
+              rows={4}
+              className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white placeholder:text-blue-200"
+            />
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-3 font-medium"
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </button>
+          </form>
         </div>
       </section>
 
-      {/* Footer (Aspire PNG inverted on dark) */}
+      {/* Footer (logo kept transparent — no invert) */}
       <footer className="bg-slate-900 text-slate-400 py-8 border-t border-slate-800">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-3">
-              <img
-                src={ASPIRE_LOGO}
-                alt="Aspire Executive Solutions"
-                className="h-8 w-auto invert"
-              />
-              <span className="text-sm">
-                © {new Date().getFullYear()} Aspire Executive Solutions. All rights reserved.
-              </span>
-            </div>
-            <div className="flex gap-6">
-              <a href="#about" className="hover:text-white transition-colors">
-                About
-              </a>
-              <a href="#features" className="hover:text-white transition-colors">
-                Solutions
-              </a>
-              <a href="#compliance" className="hover:text-white transition-colors">
-                Compliance
-              </a>
-              <a href="#pricing" className="hover:text-white transition-colors">
-                Pricing
-              </a>
-              <a
-                href="https://aspireexecutive.com.au"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                Executive Search
-              </a>
-              <Link to="/privacy" className="hover:text-white transition-colors">
-                Privacy
-              </Link>
-              <Link to="/terms" className="hover:text-white transition-colors">
-                Terms
-              </Link>
-              <Link to="/accessibility" className="hover:text-white transition-colors">
-                Accessibility
-              </Link>
-              <a href="#contact" className="hover:text-white transition-colors">
-                Contact
-              </a>
-            </div>
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-3">
+            <img
+              src={ASPIRE_LOGO}
+              alt="Aspire Executive Solutions"
+              className="h-8 w-auto"
+            />
+            <span className="text-sm">
+              © {new Date().getFullYear()} Aspire Executive Solutions. All
+              rights reserved.
+            </span>
+          </div>
+          <div className="flex gap-6">
+            <a href="#about" className="hover:text-white">
+              About
+            </a>
+            <a href="#services" className="hover:text-white">
+              Services
+            </a>
+            <a href="#features" className="hover:text-white">
+              Solutions
+            </a>
+            <a href="#compliance" className="hover:text-white">
+              Compliance
+            </a>
+            <a href="#pricing" className="hover:text-white">
+              Pricing
+            </a>
+            <a
+              href="https://aspireexecutive.com.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              Executive Search
+            </a>
+            <Link to="/privacy" className="hover:text-white">
+              Privacy
+            </Link>
+            <Link to="/terms" className="hover:text-white">
+              Terms
+            </Link>
+            <Link to="/accessibility" className="hover:text-white">
+              Accessibility
+            </Link>
+            <a href="#contact" className="hover:text-white">
+              Contact
+            </a>
           </div>
         </div>
       </footer>
@@ -701,30 +647,52 @@ const Home = () => {
   );
 };
 
-/* Small UI helpers */
-function Feature({ icon, title, text }) {
-  return (
-    <div className="rounded-2xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 hover:shadow-xl group bg-white">
-      <div className="p-6">
-        <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
-          <div className="text-blue-600 group-hover:text-white transition-colors">
-            {icon}
-          </div>
-        </div>
-        <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
-        <p className="text-slate-600 leading-relaxed">{text}</p>
-      </div>
+/* Helper components */
+const Feature = ({ icon, title, text }) => (
+  <div className="rounded-2xl border-2 border-slate-200 hover:border-blue-600 transition-all hover:shadow-xl group bg-white p-6">
+    <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
+      {React.cloneElement(icon, {
+        className: "h-7 w-7 text-blue-600 group-hover:text-white transition-colors",
+      })}
     </div>
-  );
-}
+    <h3 className="text-xl font-bold text-slate-900 mb-2">{title}</h3>
+    <p className="text-slate-600 text-sm">{text}</p>
+  </div>
+);
 
-function Card({ title, children }) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6">
-      <h3 className="font-semibold">{title}</h3>
-      <p className="mt-1 text-sm text-slate-600">{children}</p>
-    </div>
-  );
-}
+const Card = ({ title, children }) => (
+  <div className="rounded-xl border border-slate-200 bg-white p-6">
+    <h3 className="text-lg font-semibold mb-2">{title}</h3>
+    <p className="text-slate-600 text-sm">{children}</p>
+  </div>
+);
+
+const Package = ({ name, price, features, highlighted }) => (
+  <div
+    className={
+      "rounded-2xl p-6 " +
+      (highlighted
+        ? "border border-blue-300 bg-blue-50"
+        : "border border-slate-200 bg-white")
+    }
+  >
+    <p className="text-sm font-semibold">{name}</p>
+    <p className="mt-2 text-3xl font-extrabold">{price}</p>
+    <ul className="mt-4 space-y-2 text-sm text-slate-700">
+      {features.map((f) => (
+        <li key={f}>• {f}</li>
+      ))}
+    </ul>
+    <a
+      href="#contact"
+      className={
+        "mt-6 inline-block rounded-xl px-4 py-2 text-white font-semibold " +
+        (highlighted ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-600 hover:bg-blue-700")
+      }
+    >
+      Contact Us Now
+    </a>
+  </div>
+);
 
 export default Home;
