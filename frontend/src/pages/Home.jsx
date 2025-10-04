@@ -295,13 +295,13 @@ const Home = () => {
             Aspire isn’t another tech vendor. We’re led by a former council CEO
             who understands government operations and community expectations. We
             specialise in premium AI-powered customer service solutions designed
-            specifically for councils.
+            specifically for governement and complex organisations.
           </p>
           <p className="text-lg text-slate-700 mb-6">
             With real-world leadership and advanced AI, we deliver a complete
             platform—from the first call through to bookings, complaints, and
             service requests. It’s not just about answering calls; it’s about
-            elevating your entire customer journey.
+            elevating your entire customer experience.
           </p>
         </div>
       </section>
@@ -319,7 +319,7 @@ const Home = () => {
             <Feature
               icon={<Clock />}
               title="Always On, Always Reliable"
-              text="Instant responses 24/7. No queues, no missed calls — just consistent service."
+              text="Instant responses 24/7. No queues, no missed calls, just consistent service."
             />
             <Feature
               icon={<DollarSign />}
@@ -361,7 +361,7 @@ const Home = () => {
               ],
               [
                 "Seamless Integration",
-                "Works with TechOne, SAP, Civica via structured email workflows (powered by GHL).",
+                "Works with TechOne, SAP, Civica via structured email workflows.",
               ],
               [
                 "Tailored to You",
@@ -403,7 +403,7 @@ const Home = () => {
             <Feature
               icon={<PlugZap />}
               title="Seamless Integration"
-              text="Works with TechOne, SAP, Civica via structured email workflows (powered by GHL)."
+              text="Works with TechOne, SAP, Civica via structured email workflows."
             />
             <Feature
               icon={<MessageSquare />}
@@ -454,7 +454,7 @@ const Home = () => {
               Aligned with APPs. Minimal collection, auditable handling.
             </Card>
             <Card title="Australian Data Residency">
-              All call data & transcripts stored securely in Australia.
+              All call data stored securely in Australia.
             </Card>
             <Card title="Security & SLAs">
               TLS 1.2+ encryption, RBAC, SLA-backed uptime & support.
@@ -471,7 +471,7 @@ const Home = () => {
           </h2>
           <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              ["Rates & Payments", "Check balances, lodge queries, or request payment plans."],
+              ["Rates & Payments", "Lodge queries, get secure payment link or request payment plans."],
               ["Waste Services", "Missed bin reports, collection reminders, service changes."],
               ["Facility & Event Bookings", "Reserve sports fields, halls, and community spaces."],
               ["Community Information", "Councillor contacts, meetings, and local events."],
