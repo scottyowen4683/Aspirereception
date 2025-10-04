@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
@@ -18,15 +18,16 @@ import {
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// 🔧 Update these:
-const DEMO_NUMBER = "+61 2 1234 5678"; // <-- your live demo AI number
-const BOOKING_URL = "https://calendly.com/scott-owen-aspire/ai-receptionist-demo";
-
-// Logos (from your message)
+// Assets
 const ASPIRE_LOGO =
   "https://raw.githubusercontent.com/scottyowen4683/Aspirereception/refs/heads/feature/ai-receptionist/frontend/aspire.png";
 const LOCAL_BUY_LOGO =
   "https://raw.githubusercontent.com/scottyowen4683/Aspirereception/refs/heads/feature/ai-receptionist/frontend/src/localbuy.png";
+
+// Editable bits
+const DEMO_NUMBER = "+61 2 1234 5678"; // TODO: replace with your live demo AI number
+const BOOKING_URL =
+  "https://calendly.com/scott-owen-aspire/ai-receptionist-demo";
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -37,6 +38,24 @@ const Home = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // --- Chatbot loader (kept exactly as requested) ---
+  useEffect(() => {
+    const s = document.createElement("script");
+    s.src = "https://widgets.leadconnectorhq.com/loader.js";
+    s.setAttribute(
+      "data-resources-url",
+      "https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    );
+    s.setAttribute("data-widget-id", "68de330a0160d118b515f4b6");
+    document.body.appendChild(s);
+    return () => {
+      try {
+        document.body.removeChild(s);
+      } catch (_) {}
+    };
+  }, []);
+  // ---------------------------------------------------
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -196,13 +215,14 @@ const Home = () => {
       <section className="pt-32 pb-16 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-              Premium Customer Service Solutions for Councils
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              <span className="block text-slate-900">Community expectations rise.</span>
+              <span className="block text-blue-600 mt-1">We stay ahead.</span>
             </h1>
             <p className="text-xl text-slate-700 mb-8 leading-relaxed max-w-3xl mx-auto">
-              <span className="font-semibold">Simpler. Faster. Better.</span> Aspire delivers 24/7
-              community support with Australian-based data compliance and seamless integration into
-              council systems. Let AI handle routine enquiries so your staff can focus on complex, high-value work.
+              Aspire delivers 24/7 community support with Australian-based data compliance and
+              seamless integration into council systems. Let AI handle routine enquiries so your
+              staff can focus on complex, high-value work.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <a href={BOOKING_URL}>
@@ -222,27 +242,46 @@ const Home = () => {
                 </button>
               </a>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Trust card with Local Buy */}
-            <div className="mt-8 inline-flex items-center gap-6 rounded-xl border border-slate-200 bg-white/70 px-5 py-3">
-              <span className="text-sm text-slate-600">
-                Trusted by councils • Data hosted in Australia • SLA-backed
-              </span>
-              <img src={LOCAL_BUY_LOGO} alt="Local Buy Approved Supplier" className="h-6 w-auto" />
+      {/* Fancier Launch Offer */}
+      <section className="py-6">
+        <div className="container mx-auto px-6">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">
+            <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
+            <div className="absolute -bottom-12 -left-12 h-44 w-44 rounded-full bg-white/10 blur-2xl" />
+            <div className="px-6 md:px-10 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-center md:text-left">
+                <p className="text-sm uppercase tracking-wider/ wide font-semibold/">
+                  Launch Offer
+                </p>
+                <p className="text-xl md:text-2xl font-bold mt-1">
+                  Setup Fee <span className="line-through opacity-80">$10,000</span>{" "}
+                  <span className="mx-2">→</span>
+                  <span className="inline-block bg-white/20 px-2 py-1 rounded-md">
+                    FREE for the first 3 councils
+                  </span>
+                </p>
+              </div>
+              <a
+                href="#contact"
+                className="rounded-xl bg-white text-blue-700 font-semibold px-5 py-3 hover:bg-blue-50"
+              >
+                Claim Offer
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Promo Banner */}
-      <section className="border-y border-blue-100 bg-blue-50">
-        <div className="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-blue-900 font-semibold">
-            Launch Offer: Setup Fee <span className="line-through opacity-70">$10,000</span> →{" "}
-            <span className="text-blue-700">FREE</span> for the first 3 councils
-          </p>
-          <div className="flex items-center gap-3">
-            <img src={LOCAL_BUY_LOGO} alt="Local Buy Approved Supplier" className="h-6 w-auto" />
+      {/* Single Local Buy trust section */}
+      <section className="py-6">
+        <div className="container mx-auto px-6">
+          <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-center justify-center gap-4">
+            <img src={LOCAL_BUY_LOGO} alt="Local Buy" className="h-8 w-auto" />
+            <span className="text-slate-700 font-medium">Local Buy Approved Supplier</span>
           </div>
         </div>
       </section>
@@ -260,14 +299,14 @@ const Home = () => {
             <div className="bg-slate-50 rounded-2xl p-8 md:p-12 border border-slate-200">
               <p className="text-lg text-slate-700 leading-relaxed mb-6">
                 Aspire isn’t another tech vendor. We’re led by a former council CEO who understands
-                how government operates and what communities expect. We specialise in premium AI-powered
-                customer service solutions designed specifically for councils.
+                how government operates and what communities expect. We specialise in premium
+                AI-powered customer service solutions designed specifically for councils.
               </p>
 
               <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                With real-world leadership and advanced AI, we deliver a complete platform—from the first
-                call through to bookings, complaints, and service requests. It’s not just about answering
-                calls; it’s about elevating your entire customer journey.
+                With real-world leadership and advanced AI, we deliver a complete platform—from the
+                first call through to bookings, complaints, and service requests. It’s not just
+                about answering calls; it’s about elevating your entire customer journey.
               </p>
 
               <div className="flex items-center gap-3 text-blue-600 font-semibold">
@@ -291,58 +330,31 @@ const Home = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            <div className="rounded-2xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 hover:shadow-xl group bg-white">
-              <div className="p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
-                  <Clock className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">24/7 Community Service</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  No queues, no missed calls — reliable service anytime.
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 hover:shadow-xl group bg-white">
-              <div className="p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
-                  <ShieldCheck className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Data Compliance by Design</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Privacy Act 1988 (Cth) & APP aligned. AU data residency.
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 hover:shadow-xl group bg-white">
-              <div className="p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
-                  <PlugZap className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Seamless Council Integration</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Works with TechOne, SAP, Civica or via structured email workflows.
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 hover:shadow-xl group bg-white">
-              <div className="p-6">
-                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
-                  <Phone className="h-7 w-7 text-blue-600 group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Human Escalation</h3>
-                <p className="text-slate-600 leading-relaxed">
-                  Urgent or complex matters transfer instantly to staff with full context.
-                </p>
-              </div>
-            </div>
+            <Feature
+              icon={<Clock className="h-7 w-7" />}
+              title="24/7 Community Service"
+              text="No queues, no missed calls — reliable service anytime."
+            />
+            <Feature
+              icon={<ShieldCheck className="h-7 w-7" />}
+              title="Data Compliance by Design"
+              text="Privacy Act 1988 (Cth) & APP aligned. AU data residency."
+            />
+            <Feature
+              icon={<PlugZap className="h-7 w-7" />}
+              title="Seamless Council Integration"
+              text="Works with TechOne, SAP, Civica or via structured email workflows."
+            />
+            <Feature
+              icon={<Phone className="h-7 w-7" />}
+              title="Human Escalation"
+              text="Urgent or complex matters transfer instantly to staff with full context."
+            />
           </div>
         </div>
       </section>
 
-      {/* Chatbot demo (copy only; your chatbot stays embedded elsewhere) */}
+      {/* Chatbot section (copy only – widget already loaded) */}
       <section id="demo" className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
@@ -355,17 +367,17 @@ const Home = () => {
                 tailored to your services and workflows.
               </p>
               <ul className="mt-4 space-y-2 text-slate-700">
-                <li>• Deployed on your website or intranet (already live on this page).</li>
+                <li>• Deployed on this page — open the chat widget (bottom-right) to try it now.</li>
                 <li>• Answers FAQs instantly (rates, bins, bookings, councillor info).</li>
                 <li>• Escalates to staff or logs requests directly.</li>
                 <li>• Fully branded and configured for your community.</li>
               </ul>
               <div className="mt-6 inline-flex items-center gap-2 text-slate-700">
                 <MessageSquare className="h-5 w-5" />
-                <span>Open the chat widget (bottom-right) to try the council demo now.</span>
+                <span>Prefer voice? Call the AI demo: {DEMO_NUMBER}</span>
               </div>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <blockquote className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
               <p className="text-slate-700">
                 “Aspire takes care of routine enquiries, freeing our staff to focus on complex,
                 high-value community work.”
@@ -377,7 +389,7 @@ const Home = () => {
                   <p>Queensland</p>
                 </div>
               </div>
-            </div>
+            </blockquote>
           </div>
         </div>
       </section>
@@ -394,27 +406,18 @@ const Home = () => {
             </p>
 
             <div className="mt-8 grid md:grid-cols-3 gap-6">
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <h3 className="font-semibold">Privacy Act 1988 (Cth)</h3>
-                <p className="mt-1 text-sm text-slate-600">
-                  Fully aligned with the Australian Privacy Principles. Clear purpose, minimal
-                  collection, auditable handling.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <h3 className="font-semibold">Australian Data Residency</h3>
-                <p className="mt-1 text-sm text-slate-600">
-                  All call data, transcripts, and interaction logs are stored securely within
-                  Australia.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <h3 className="font-semibold">Security & SLAs</h3>
-                <p className="mt-1 text-sm text-slate-600">
-                  TLS 1.2+ encryption in transit, role-based access, and SLA-backed uptime and
-                  support response times.
-                </p>
-              </div>
+              <Card title="Privacy Act 1988 (Cth)">
+                Fully aligned with the Australian Privacy Principles. Clear purpose, minimal
+                collection, auditable handling.
+              </Card>
+              <Card title="Australian Data Residency">
+                All call data, transcripts, and interaction logs are stored securely within
+                Australia.
+              </Card>
+              <Card title="Security & SLAs">
+                TLS 1.2+ encryption in transit, role-based access, and SLA-backed uptime and
+                support response times.
+              </Card>
             </div>
 
             <p className="mt-6 text-sm text-slate-600">
@@ -466,38 +469,41 @@ const Home = () => {
             <p className="text-slate-700">Simple tiers. Enterprise reliability.</p>
 
             <div className="mt-8 grid md:grid-cols-3 gap-6">
+              {/* Essential */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6">
                 <p className="text-sm font-semibold">Essential</p>
                 <p className="mt-2 text-3xl font-extrabold">POA</p>
                 <ul className="mt-4 space-y-2 text-sm text-slate-700">
                   <li>• Inbound call handling & service requests</li>
-                  <li>• Complaint logging & reference numbers</li>
+                  <li>• Chatbot integration (web widget)</li>
                   <li>• Quick deployment</li>
                 </ul>
                 <a
-                  href={BOOKING_URL}
+                  href="#contact"
                   className="mt-6 inline-block rounded-xl px-4 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700"
                 >
-                  Book a Demo
+                  Contact Us Now
                 </a>
               </div>
 
+              {/* Advanced */}
               <div className="rounded-2xl border border-blue-300 bg-blue-50 p-6">
                 <p className="text-sm font-semibold">Advanced</p>
                 <p className="mt-2 text-3xl font-extrabold">POA</p>
                 <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                  <li>• Phone, SMS, chat & email intake</li>
-                  <li>• Structured workflows + integrations</li>
+                  <li>• Everything in Essential</li>
+                  <li>• Integrations & workflows (e.g., TechOne/SAP or structured email)</li>
                   <li>• Reporting & insights</li>
                 </ul>
                 <a
-                  href={BOOKING_URL}
+                  href="#contact"
                   className="mt-6 inline-block rounded-xl px-4 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700"
                 >
-                  Book a Demo
+                  Contact Us Now
                 </a>
               </div>
 
+              {/* Premium */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6">
                 <p className="text-sm font-semibold">Premium</p>
                 <p className="mt-2 text-3xl font-extrabold">Tailored</p>
@@ -507,10 +513,10 @@ const Home = () => {
                   <li>• Executive reporting</li>
                 </ul>
                 <a
-                  href={BOOKING_URL}
+                  href="#contact"
                   className="mt-6 inline-block rounded-xl px-4 py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700"
                 >
-                  Request Council Pack
+                  Contact Us Now
                 </a>
               </div>
             </div>
@@ -633,7 +639,12 @@ const Home = () => {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-3">
-              <img src={ASPIRE_LOGO} alt="Aspire Executive Solutions" className="h-8 w-auto" />
+              {/* Invert the black PNG to blend on dark footer */}
+              <img
+                src={ASPIRE_LOGO}
+                alt="Aspire Executive Solutions"
+                className="h-8 w-auto invert"
+              />
               <span className="text-sm">
                 © {new Date().getFullYear()} Aspire Executive Solutions. All rights reserved.
               </span>
@@ -675,5 +686,31 @@ const Home = () => {
     </div>
   );
 };
+
+/* Small UI helpers */
+function Feature({ icon, title, text }) {
+  return (
+    <div className="rounded-2xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 hover:shadow-xl group bg-white">
+      <div className="p-6">
+        <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
+          <div className="text-blue-600 group-hover:text-white transition-colors">
+            {icon}
+          </div>
+        </div>
+        <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
+        <p className="text-slate-600 leading-relaxed">{text}</p>
+      </div>
+    </div>
+  );
+}
+
+function Card({ title, children }) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-6">
+      <h3 className="font-semibold">{title}</h3>
+      <p className="mt-1 text-sm text-slate-600">{children}</p>
+    </div>
+  );
+}
 
 export default Home;
