@@ -254,7 +254,7 @@ const Home = () => {
             <div>
               <p className="text-sm uppercase tracking-wider">Launch Offer</p>
               <p className="text-xl md:text-2xl font-bold mt-1">
-                Setup Fee <span className="line-through opacity-80">$10,000</span> →{" "}
+                Setup Fee <span className="line-through opacity-80">$25,000</span> →{" "}
                 <span className="bg-white/20 px-2 py-1 rounded-md">
                   FREE for the first 3 councils
                 </span>
