@@ -154,6 +154,7 @@ async def vapi_send_structured_email(
         payload = await request.json()
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid JSON body")
+logging.info(f"VAPI structured email payload: {payload}")
 
     required = [
         "subject",
