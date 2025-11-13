@@ -28,7 +28,6 @@ db = client[db_name]
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
-
 # --- Models ---
 class ContactSubmission(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -39,25 +38,21 @@ class ContactSubmission(BaseModel):
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     status: str = "new"
 
-
 class ContactSubmissionCreate(BaseModel):
     name: str
     email: EmailStr
     phone: Optional[str] = None
     message: str
 
-
 class ContactResponse(BaseModel):
     status: str
     message: str
     id: str
 
-
 # --- Health/info ---
 @api_router.get("/")
 async def root():
     return {"message": "Aspire Executive Solutions API"}
-
 
 # --- Contact form route ---
 @api_router.post("/contact", response_model=ContactResponse)
@@ -95,7 +90,6 @@ async def create_contact_submission(
             status_code=500, detail="An error occurred processing your request"
         )
 
-
 # --- Debug ENV route ---
 @api_router.get("/debug/env")
 def debug_env():
@@ -113,7 +107,6 @@ def debug_env():
             os.getenv("BREVO_API_KEY") or os.getenv("BREVO_PASSWORD")
         ),
     }
-
 
 # --- Contact debug route ---
 @api_router.post("/contact/debug", response_model=ContactResponse)
@@ -143,18 +136,21 @@ async def create_contact_submission_debug(input: ContactSubmissionCreate):
         logging.exception("Debug route failed")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 # --- Vapi structured email endpoint ---
 @api_router.post("/vapi/send-structured-email")
-async def vapi_send_structured_email(
-    request: Request,
-    background_tasks: BackgroundTasks,
-):
+async def vapi_send_structured_email(request: Request):
+    """
+    This is the endpoint hit by the Vapi tool.
+    We now log the payload AND send the email synchronously
+    (exactly like the working test route).
+    """
     try:
         payload = await request.json()
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid JSON body")
-logging.info(f"VAPI structured email payload: {payload}")
+
+    # Log the incoming payload
+    logging.info(f"VAPI structured email payload: {payload}")
 
     required = [
         "subject",
@@ -172,8 +168,8 @@ logging.info(f"VAPI structured email payload: {payload}")
         )
 
     try:
-        # Send email asynchronously (prevents Vapi 20s timeout)
-        background_tasks.add_task(send_council_request_email, payload)
+        # SYNC SEND – same as test email (works reliably)
+        send_council_request_email(payload)
 
     except EmailDeliveryError as e:
         raise HTTPException(status_code=502, detail=f"Email delivery failed: {str(e)}")
@@ -183,15 +179,9 @@ logging.info(f"VAPI structured email payload: {payload}")
 
     return JSONResponse({"success": True})
 
-
-# --- NEW: DIRECT TEST for council email sender (returns error text) ---
+# --- DIRECT TEST for council email sender ---
 @api_router.get("/vapi/test-council-email")
 async def vapi_test_council_email():
-    """
-    Direct test route to confirm whether send_council_request_email()
-    actually sends an email through Brevo. Errors are returned in JSON
-    so they are easy to see in the browser.
-    """
     test_payload = {
         "subject": "TEST – Council email wiring",
         "request_type": "Test",
@@ -209,23 +199,12 @@ async def vapi_test_council_email():
         send_council_request_email(test_payload)
         return {
             "success": True,
-            "message": "Test council email function executed (send_council_request_email returned without error).",
+            "message": "Test council email function executed.",
         }
     except EmailDeliveryError as e:
-        # Brevo-specific problem
-        return {
-            "success": False,
-            "source": "brevo",
-            "error": str(e),
-        }
+        return {"success": False, "source": "brevo", "error": str(e)}
     except Exception as e:
-        # Any other Python error
-        return {
-            "success": False,
-            "source": "server",
-            "error": repr(e),
-        }
-
+        return {"success": False, "source": "server", "error": repr(e)}
 
 # --- Wire router / CORS / logging ---
 app.include_router(api_router)
@@ -239,7 +218,6 @@ app.add_middleware(
 )
 
 logging.basicConfig(level=logging.INFO)
-
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
