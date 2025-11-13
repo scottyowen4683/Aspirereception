@@ -183,12 +183,13 @@ async def vapi_send_structured_email(
     return JSONResponse({"success": True})
 
 
-# --- NEW: DIRECT TEST for council email sender ---
+# --- NEW: DIRECT TEST for council email sender (returns error text) ---
 @api_router.get("/vapi/test-council-email")
 async def vapi_test_council_email():
     """
     Direct test route to confirm whether send_council_request_email()
-    actually sends an email through Brevo.
+    actually sends an email through Brevo. Errors are returned in JSON
+    so they are easy to see in the browser.
     """
     test_payload = {
         "subject": "TEST – Council email wiring",
@@ -205,16 +206,24 @@ async def vapi_test_council_email():
 
     try:
         send_council_request_email(test_payload)
+        return {
+            "success": True,
+            "message": "Test council email function executed (send_council_request_email returned without error).",
+        }
     except EmailDeliveryError as e:
-        raise HTTPException(
-            status_code=502,
-            detail=f"Email delivery failed: {str(e)}"
-        )
+        # Brevo-specific problem
+        return {
+            "success": False,
+            "source": "brevo",
+            "error": str(e),
+        }
     except Exception as e:
-        logging.exception("Test council email failed")
-        raise HTTPException(status_code=500, detail=str(e))
-
-    return {"success": True, "message": "Test council email function executed."}
+        # Any other Python error
+        return {
+            "success": False,
+            "source": "server",
+            "error": repr(e),
+        }
 
 
 # --- Wire router / CORS / logging ---
