@@ -59,7 +59,7 @@ async def root():
     return {"message": "Aspire Executive Solutions API"}
 
 
-# --- Normal async route (emails sent in background) ---
+# --- Contact form route ---
 @api_router.post("/contact", response_model=ContactResponse)
 async def create_contact_submission(
     input: ContactSubmissionCreate, background_tasks: BackgroundTasks
@@ -68,7 +68,6 @@ async def create_contact_submission(
         contact_obj = ContactSubmission(**input.dict())
         await db.contact_submissions.insert_one(contact_obj.dict())
 
-        # send email in background
         background_tasks.add_task(
             send_contact_notification,
             contact_obj.name,
@@ -85,7 +84,6 @@ async def create_contact_submission(
 
     except EmailDeliveryError as e:
         logging.error(f"Email delivery failed (background): {str(e)}")
-        # still return success to avoid UX leak; submission was stored
         return ContactResponse(
             status="success",
             message="Thank you for contacting us. We'll get back to you within 24 hours.",
@@ -98,7 +96,7 @@ async def create_contact_submission(
         )
 
 
-# --- DEBUG: show env seen by the running app ---
+# --- Debug ENV route ---
 @api_router.get("/debug/env")
 def debug_env():
     def mask(v: Optional[str]):
@@ -117,14 +115,13 @@ def debug_env():
     }
 
 
-# --- DEBUG: send email synchronously so errors surface in the response ---
+# --- Contact debug route ---
 @api_router.post("/contact/debug", response_model=ContactResponse)
 async def create_contact_submission_debug(input: ContactSubmissionCreate):
     try:
         contact_obj = ContactSubmission(**input.dict())
         await db.contact_submissions.insert_one(contact_obj.dict())
 
-        # send synchronously (no BackgroundTasks) so we SEE Brevo errors
         send_contact_notification(
             contact_obj.name,
             contact_obj.email,
@@ -139,7 +136,6 @@ async def create_contact_submission_debug(input: ContactSubmissionCreate):
         )
 
     except EmailDeliveryError as e:
-        # bubble up so you see it in the response body
         raise HTTPException(
             status_code=502, detail=f"Email delivery failed: {str(e)}"
         )
@@ -148,29 +144,12 @@ async def create_contact_submission_debug(input: ContactSubmissionCreate):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# --- Vapi structured email endpoint (UNIVERSAL FOR ALL COUNCILS) ---
+# --- Vapi structured email endpoint ---
 @api_router.post("/vapi/send-structured-email")
 async def vapi_send_structured_email(
     request: Request,
     background_tasks: BackgroundTasks,
 ):
-    """
-    Webhook endpoint for Vapi custom tools (e.g. `send_structured_email_hinchinbrook`).
-
-    Vapi will POST a JSON body here with the fields defined in the tool schema.
-    This endpoint is UNIVERSAL – any council can use it as long as the payload
-    contains the required keys.
-
-    Required JSON fields (from Vapi tool):
-      - subject         (string)
-      - request_type    (string)
-      - resident_name   (string)
-      - resident_phone  (string)
-      - address         (string)
-      - details         (string)
-
-    You can add extra optional fields like `council` without breaking anything.
-    """
     try:
         payload = await request.json()
     except Exception:
@@ -192,18 +171,50 @@ async def vapi_send_structured_email(
         )
 
     try:
-        # Send email in the background so Vapi doesn't hit a 20s timeout
+        # Send email asynchronously (prevents Vapi 20s timeout)
         background_tasks.add_task(send_council_request_email, payload)
 
     except EmailDeliveryError as e:
-        raise HTTPException(
-            status_code=502, detail=f"Email delivery failed: {str(e)}"
-        )
+        raise HTTPException(status_code=502, detail=f"Email delivery failed: {str(e)}")
     except Exception as e:
         logging.exception("Error processing Vapi structured email")
         raise HTTPException(status_code=500, detail="Internal server error")
 
     return JSONResponse({"success": True})
+
+
+# --- NEW: DIRECT TEST for council email sender ---
+@api_router.get("/vapi/test-council-email")
+async def vapi_test_council_email():
+    """
+    Direct test route to confirm whether send_council_request_email()
+    actually sends an email through Brevo.
+    """
+    test_payload = {
+        "subject": "TEST – Council email wiring",
+        "request_type": "Test",
+        "resident_name": "Scott (Test)",
+        "resident_phone": "0400 000 000",
+        "address": "Test address",
+        "details": (
+            "This is a test email triggered from /api/vapi/test-council-email to "
+            "verify send_council_request_email is working with the current Brevo setup."
+        ),
+        "council": "Hinchinbrook Shire Council",
+    }
+
+    try:
+        send_council_request_email(test_payload)
+    except EmailDeliveryError as e:
+        raise HTTPException(
+            status_code=502,
+            detail=f"Email delivery failed: {str(e)}"
+        )
+    except Exception as e:
+        logging.exception("Test council email failed")
+        raise HTTPException(status_code=500, detail=str(e))
+
+    return {"success": True, "message": "Test council email function executed."}
 
 
 # --- Wire router / CORS / logging ---
