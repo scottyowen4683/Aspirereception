@@ -6,7 +6,7 @@ from typing import Optional
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 from pathlib import Path
-import os, uuid, logging
+import os, uuid, logging, json
 from datetime import datetime
 
 from emails import (
@@ -140,17 +140,36 @@ async def create_contact_submission_debug(input: ContactSubmissionCreate):
 @api_router.post("/vapi/send-structured-email")
 async def vapi_send_structured_email(request: Request):
     """
-    This is the endpoint hit by the Vapi tool.
-    We now log the payload AND send the email synchronously
-    (exactly like the working test route).
+    Endpoint hit by the Vapi tool `send_structured_email_hinchinbrook`.
+    Vapi wraps tool calls in a `message` envelope; we unwrap that and
+    extract the function arguments as the actual email payload.
     """
     try:
         payload = await request.json()
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid JSON body")
 
-    # Log the incoming payload
-    logging.info(f"VAPI structured email payload: {payload}")
+    logging.info(f"VAPI structured email RAW payload: {payload}")
+
+    # --- Unwrap Vapi envelope to get the tool arguments ---
+    args = payload
+    try:
+        message = payload.get("message")
+        if isinstance(message, dict):
+            tool_calls = message.get("toolCalls") or message.get("toolCallList")
+            if isinstance(tool_calls, list) and tool_calls:
+                first_call = tool_calls[0]
+                func = first_call.get("function", {})
+                arguments = func.get("arguments")
+                if isinstance(arguments, dict):
+                    args = arguments
+                elif isinstance(arguments, str):
+                    # Sometimes arguments can be a JSON string
+                    args = json.loads(arguments)
+    except Exception as e:
+        logging.exception("Failed to unwrap Vapi payload; falling back to top-level payload")
+
+    logging.info(f"VAPI structured email ARGUMENTS: {args}")
 
     required = [
         "subject",
@@ -160,7 +179,7 @@ async def vapi_send_structured_email(request: Request):
         "address",
         "details",
     ]
-    missing = [k for k in required if not payload.get(k)]
+    missing = [k for k in required if not args.get(k)]
     if missing:
         raise HTTPException(
             status_code=400,
@@ -168,8 +187,8 @@ async def vapi_send_structured_email(request: Request):
         )
 
     try:
-        # SYNC SEND – same as test email (works reliably)
-        send_council_request_email(payload)
+        # Send synchronously – same behaviour as the working test route
+        send_council_request_email(args)
 
     except EmailDeliveryError as e:
         raise HTTPException(status_code=502, detail=f"Email delivery failed: {str(e)}")
