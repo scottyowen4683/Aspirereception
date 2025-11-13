@@ -104,7 +104,6 @@ def debug_env():
     def mask(v: Optional[str]):
         if not v:
             return None
-    #     return v[:4] + "..." + v[-4:] if len(v) > 8 else v
         return v[:4] + "..." + v[-4:] if len(v) > 8 else v
 
     return {
@@ -149,12 +148,28 @@ async def create_contact_submission_debug(input: ContactSubmissionCreate):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# --- NEW: Vapi structured email endpoint ---
+# --- Vapi structured email endpoint (UNIVERSAL FOR ALL COUNCILS) ---
 @api_router.post("/vapi/send-structured-email")
-async def vapi_send_structured_email(request: Request):
+async def vapi_send_structured_email(
+    request: Request,
+    background_tasks: BackgroundTasks,
+):
     """
-    Webhook endpoint for the Vapi custom tool `send_structured_email`.
+    Webhook endpoint for Vapi custom tools (e.g. `send_structured_email_hinchinbrook`).
+
     Vapi will POST a JSON body here with the fields defined in the tool schema.
+    This endpoint is UNIVERSAL – any council can use it as long as the payload
+    contains the required keys.
+
+    Required JSON fields (from Vapi tool):
+      - subject         (string)
+      - request_type    (string)
+      - resident_name   (string)
+      - resident_phone  (string)
+      - address         (string)
+      - details         (string)
+
+    You can add extra optional fields like `council` without breaking anything.
     """
     try:
         payload = await request.json()
@@ -177,7 +192,9 @@ async def vapi_send_structured_email(request: Request):
         )
 
     try:
-        send_council_request_email(payload)
+        # Send email in the background so Vapi doesn't hit a 20s timeout
+        background_tasks.add_task(send_council_request_email, payload)
+
     except EmailDeliveryError as e:
         raise HTTPException(
             status_code=502, detail=f"Email delivery failed: {str(e)}"
