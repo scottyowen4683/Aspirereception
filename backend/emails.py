@@ -46,15 +46,29 @@ def send_contact_notification(name: str, email: str, phone: str, message: str):
 
 def send_council_request_email(payload: dict):
     """
-    New function used by the Vapi custom tool `send_structured_email`.
-    Expects a JSON payload with structured council request data and
-    sends a formatted email via Brevo.
+    New function used by the Vapi custom tool `send_structured_email_hinchinbrook`.
+
+    IMPORTANT (SETUP MODE):
+    - We IGNORE any `to` value coming from Vapi so we don't accidentally
+      email a live council while testing.
+    - All requests are sent to the internal RECIPIENT_EMAIL defined in env.
+    - The original `to` value (if present) is included in the email body
+      so you can see where it *would* have gone in production.
     """
     api_instance = _get_brevo_api_instance()
 
     sender_email = os.environ.get("SENDER_EMAIL")
-    # If Vapi passes an explicit `to` address, use it; otherwise fall back to RECIPIENT_EMAIL
-    recipient_email = payload.get("to") or os.environ.get("RECIPIENT_EMAIL")
+
+    # During setup / testing, always send to your internal address
+    # (the same one used by the website contact form).
+    recipient_email = os.environ.get("RECIPIENT_EMAIL")
+
+    if not recipient_email:
+        raise EmailDeliveryError(
+            "RECIPIENT_EMAIL is not set in environment variables."
+        )
+
+    original_to = payload.get("to")  # only for display in the email body
 
     subject = payload.get("subject", "New Council Request")
 
@@ -67,7 +81,11 @@ def send_council_request_email(payload: dict):
         <p><strong>Preferred contact:</strong> {payload.get('preferred_contact_method', 'N/A')}</p>
         <p><strong>Urgency:</strong> {payload.get('urgency', 'Normal')}</p>
         <p><strong>Details:</strong><br>{payload.get('details', '')}</p>
-        <h3>Extra metadata</h3>
+
+        <h3>Routing / Metadata</h3>
+        <p><strong>Original 'to' value from Vapi:</strong> {original_to or 'N/A (not provided)'}</p>
+        <p><strong>Council (if provided):</strong> {payload.get('council', 'Hinchinbrook Shire Council')}</p>
+        <h4>Extra metadata</h4>
         <pre>{payload.get('extra_metadata') or ''}</pre>
     """
 
