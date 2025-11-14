@@ -141,8 +141,19 @@ async def create_contact_submission_debug(input: ContactSubmissionCreate):
 async def vapi_send_structured_email(request: Request):
     """
     Endpoint hit by the Vapi tool `send_structured_email_hinchinbrook`.
+
     Vapi wraps tool calls in a `message` envelope; we unwrap that and
-    extract the function arguments as the actual email payload.
+    extract the function arguments as the actual email payload, AND we
+    return the result in the exact structure Vapi expects:
+
+    {
+      "results": [
+        {
+          "toolCallId": "<id from toolCalls>",
+          "result": "Your response as single-line string"
+        }
+      ]
+    }
     """
     try:
         payload = await request.json()
@@ -151,22 +162,31 @@ async def vapi_send_structured_email(request: Request):
 
     logging.info(f"VAPI structured email RAW payload: {payload}")
 
-    # --- Unwrap Vapi envelope to get the tool arguments ---
     args = payload
+    tool_call_id = None
+
+    # --- Unwrap Vapi envelope to get toolCallId + arguments ---
     try:
         message = payload.get("message")
         if isinstance(message, dict):
             tool_calls = message.get("toolCalls") or message.get("toolCallList")
             if isinstance(tool_calls, list) and tool_calls:
                 first_call = tool_calls[0]
+
+                # toolCallId Vapi wants back
+                tool_call_id = first_call.get("id")
+
                 func = first_call.get("function", {})
                 arguments = func.get("arguments")
                 if isinstance(arguments, dict):
                     args = arguments
                 elif isinstance(arguments, str):
+                    # Sometimes arguments can be a JSON string
                     args = json.loads(arguments)
     except Exception:
-        logging.exception("Failed to unwrap Vapi payload; falling back to top-level payload")
+        logging.exception(
+            "Failed to unwrap Vapi payload; falling back to top-level payload"
+        )
 
     logging.info(f"VAPI structured email ARGUMENTS: {args}")
 
@@ -180,21 +200,37 @@ async def vapi_send_structured_email(request: Request):
     ]
     missing = [k for k in required if not args.get(k)]
     if missing:
+        # Let Vapi see this as an error – it will surface back to the model
         raise HTTPException(
             status_code=400,
             detail=f"Missing required fields: {', '.join(missing)}",
         )
 
+    # --- Do the actual work (send email) ---
     try:
         send_council_request_email(args)
-
     except EmailDeliveryError as e:
         raise HTTPException(status_code=502, detail=f"Email delivery failed: {str(e)}")
     except Exception:
         logging.exception("Error processing Vapi structured email")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-    return JSONResponse({"status": "ok", "success": True})
+    # --- Return success in the exact format Vapi expects ---
+    if not tool_call_id:
+        # Fallback so we still satisfy the schema even if id missing
+        tool_call_id = "unknown"
+
+    return JSONResponse(
+        {
+            "results": [
+                {
+                    "toolCallId": tool_call_id,
+                    # This is what will appear as the tool's "result" in the logs / model
+                    "result": "Request emailed successfully",
+                }
+            ]
+        }
+    )
 
 
 
