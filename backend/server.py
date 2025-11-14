@@ -196,7 +196,8 @@ async def vapi_send_structured_email(request: Request):
         logging.exception("Error processing Vapi structured email")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-    return JSONResponse({"success": True})
+   return JSONResponse({"status": "ok", "success": True})
+
 
 # --- DIRECT TEST for council email sender ---
 @api_router.get("/vapi/test-council-email")
