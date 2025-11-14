@@ -164,9 +164,8 @@ async def vapi_send_structured_email(request: Request):
                 if isinstance(arguments, dict):
                     args = arguments
                 elif isinstance(arguments, str):
-                    # Sometimes arguments can be a JSON string
                     args = json.loads(arguments)
-    except Exception as e:
+    except Exception:
         logging.exception("Failed to unwrap Vapi payload; falling back to top-level payload")
 
     logging.info(f"VAPI structured email ARGUMENTS: {args}")
@@ -187,16 +186,16 @@ async def vapi_send_structured_email(request: Request):
         )
 
     try:
-        # Send synchronously – same behaviour as the working test route
         send_council_request_email(args)
 
     except EmailDeliveryError as e:
         raise HTTPException(status_code=502, detail=f"Email delivery failed: {str(e)}")
-    except Exception as e:
+    except Exception:
         logging.exception("Error processing Vapi structured email")
         raise HTTPException(status_code=500, detail="Internal server error")
 
-   return JSONResponse({"status": "ok", "success": True})
+    return JSONResponse({"status": "ok", "success": True})
+
 
 
 # --- DIRECT TEST for council email sender ---
